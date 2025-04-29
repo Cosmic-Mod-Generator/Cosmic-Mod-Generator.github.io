@@ -267,28 +267,6 @@ export async function loadImage(src: string) {
 	})
 }
 
-/*
-async function loadImage(src: string) {
-	const buffer = await cachedFetch(src, { decode: r => r.arrayBuffer() })
-	const blob = new Blob([buffer], { type: 'image/png' })
-	const img = new Image()
-	img.src = URL.createObjectURL(blob)
-	return new Promise<ImageData>((res) => {
-		img.onload = () => {
-			const canvas = document.createElement('canvas')
-			const ctx = canvas.getContext('2d')!
-			ctx.drawImage(img, 0, 0)
-			const imgData = ctx.getImageData(0, 0, img.width, img.height)
-			res(imgData)
-		}
-	})
-}
-*/
-
-interface DeprecatedInfo {
-	removed: string[]
-	renamed: Record<string, string>
-}
 
 export async function fetchLanguage(versionId: VersionId, lang: string = 'en_us') {
 	const version = config.versions.find(v => v.id === versionId)!

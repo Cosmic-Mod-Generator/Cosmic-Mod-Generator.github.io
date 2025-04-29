@@ -4,6 +4,6 @@ import { initCosmicHorizons } from './CosmicHorizons.js'
 
 export * from './CosmicHorizons.js'
 
-export function initPartners(schemas: SchemaRegistry, collections: CollectionRegistry, version: VersionId) {
+export function initPartners(schemas: SchemaRegistry, collections: CollectionRegistry, _version: VersionId) {
 	initCosmicHorizons(schemas, collections)
 }

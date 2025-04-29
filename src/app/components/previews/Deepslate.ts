@@ -120,7 +120,7 @@ export class Deepslate {
 		}
 	}
 
-	private async createBiomeSource(noiseSettings: deepslate19.NoiseGeneratorSettings, biomeState: unknown, seed: bigint): Promise<deepslate19.BiomeSource> {
+	private async createBiomeSource(_noiseSettings: deepslate19.NoiseGeneratorSettings, biomeState: unknown, seed: bigint): Promise<deepslate19.BiomeSource> {
 		if (this.loadedVersion && isObject(biomeState) && typeof biomeState.preset === 'string') {
 			const version = this.loadedVersion
 			const preset = biomeState.preset.replace(/^minecraft:/, '')
@@ -321,12 +321,6 @@ export class Deepslate {
 		return chunk?.getBlockState(this.d.BlockPos.create(x, y, this.Z))
 	}
 
-	private isVersion(min?: VersionId, max?: VersionId) {
-		if (!this.loadedVersion) {
-			throw new Error('No deepslate version loaded')
-		}
-		return checkVersion(this.loadedVersion, min, max)
-	}
 }
 
 export const DEEPSLATE = new Deepslate()
