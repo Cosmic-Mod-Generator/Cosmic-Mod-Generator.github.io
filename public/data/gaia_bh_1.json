@@ -1,0 +1,163 @@
+{
+  "planet_data": {
+    "unknow_star": {
+      "object_name": "BH1 B",
+      "x": 60000,
+      "y": 900,
+      "z": -30000,
+      "yaw": 10,
+      "pitch": -10,
+      "roll": 10,
+      "scale": 32000,
+      "texture_id": "none",
+      "collision": false,
+      "glowing": true,
+      "ringed": false,
+      "layer": 64,
+      "core_color": {
+        "r": 255,
+        "g": 255,
+        "b": 255
+      },
+      "bloom_color": {
+        "r": 10,
+        "g": 16,
+        "b": 64
+      }
+    },
+    "gaia": {
+      "object_name": "Gaia BH1",
+      "x": 45000,
+      "y": 1200,
+      "z": 85000,
+      "yaw": -5,
+      "pitch": 5,
+      "roll": 5,
+      "scale": 5500,
+      "texture_id": "none",
+      "collision": false,
+      "glowing": false,
+      "ringed": false,
+      "model_type": "black_hole",
+      "model_data": {
+        "color": {
+          "r": 60,
+          "g": 120,
+          "b": 213
+        },
+        "intensity": 112,
+        "step": 4,
+        "speed": 8
+      }
+    },
+    "dark_earth": {
+      "object_name": "Dark Earth",
+      "x": 35000,
+      "y": 470,
+      "z": 35000,
+      "yaw": -6,
+      "pitch": -5,
+      "roll": 7,
+      "scale": 990,
+      "texture_id": "darkearth",
+      "collision": false,
+      "opaque": true,
+      "atmosphere_color": {
+        "r": 178,
+        "g": 102,
+        "b": 255,
+        "alpha": 24
+      },
+      "glowing": false,
+      "ringed": true,
+      "ring_data": {
+        "ring1": {
+          "texture_id": "de",
+          "radius": 1050,
+          "scale_radius": 1350,
+          "flip_y": true,
+          "flip_x": false,
+          "flip_z": false
+        }
+      }
+    }
+  },
+  "attached_dimention_id": "cosmos:gaia_bh_1",
+  "local_id": "Gaia BH1",
+  "skybox_data": {
+    "texture_id": "skybox_gaia",
+    "alpha": 255,
+    "yaw": 50,
+    "pitch": 20,
+    "roll": 0
+  },
+  "dimensional_data": {
+    "dimension_type": "space",
+    "weather": false,
+    "clouds": false,
+    "sky_objects": false,
+    "gravity": 0,
+    "air_resistance": 1
+  },
+  "gui_data": {
+    "gaia_sys": {
+      "object_data": {
+        "dark_earth": {
+          "texture_id": "darkearth",
+          "scale": 19,
+          "ponder_scale": 63,
+          "yaw": -25,
+          "pitch": -170,
+          "roll": 5,
+          "yaw_speed": 0.45,
+          "pitch_speed": 0,
+          "roll_speed": 0,
+          "travel_x": 35200,
+          "travel_y": 1065,
+          "travel_z": 35300,
+          "unlocking_dimension": "none",
+          "atmosphere": {
+            "text": "Thick",
+            "color": "white"
+          },
+          "name": {
+            "text": "Dark Earth",
+            "color": "purple"
+          },
+          "type": {
+            "text": "Rocky",
+            "color": "brown"
+          },
+          "conditions": {
+            "text": "Habitable",
+            "color": "green"
+          },
+          "size": {
+            "text": "Huge",
+            "color": "yellow"
+          },
+          "category": {
+            "text": "Terrestrial",
+            "color": "green"
+          },
+          "life": 70,
+          "ringed": true,
+          "ring_data": {
+            "ring1": {
+              "texture_id": "de",
+              "scale_radius": 25
+            }
+          }
+        }
+      },
+      "travel_dimension": "cosmos:gaia_bh_1",
+      "origin_x": 29000,
+      "origin_y": 460,
+      "origin_z": 29000,
+      "unlocking_dimension": "cosmos:b1400_centauri",
+      "background": "gaia_bg",
+      "title": "Gaia BH1",
+      "order": -1
+    }
+  }
+}

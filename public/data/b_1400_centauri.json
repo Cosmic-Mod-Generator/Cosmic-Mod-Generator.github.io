@@ -1,0 +1,267 @@
+{
+  "planet_data": {
+    "unknown_star": {
+      "object_name": "V1400",
+      "x": 300000,
+      "y": 900,
+      "z": 0,
+      "yaw": 10,
+      "pitch": -10,
+      "roll": 10,
+      "scale": 42000,
+      "texture_id": "none",
+      "collision": false,
+      "glowing": true,
+      "ringed": false,
+      "layer": 64,
+      "core_color": {
+        "r": 255,
+        "g": 255,
+        "b": 255
+      },
+      "bloom_color": {
+        "r": 64,
+        "g": 32,
+        "b": 16
+      }
+    },
+    "j1407b": {
+      "object_name": "J1407B",
+      "x": -151000,
+      "y": 579,
+      "z": 0,
+      "yaw": 0.5,
+      "pitch": -0.5,
+      "roll": 0.5,
+      "scale": 2800,
+      "texture_id": "jbp",
+      "collision": true,
+      "opaque": true,
+      "atmosphere_color": {
+        "r": 255,
+        "g": 193,
+        "b": 121,
+        "alpha": 34
+      },
+      "cloud_data": {
+        "animation_folder": "clouds/gas/",
+        "tick_delay": 5,
+        "frames": 6,
+        "cloud_color": {
+          "r": 210,
+          "g": 178,
+          "b": 136,
+          "alpha": 210
+        }
+      },
+      "travel_to": "cosmos:j_1407blands",
+      "glowing": false,
+      "ringed": true,
+      "ring_data": {
+        "ring1": {
+          "texture_id": "jb1",
+          "radius": 3000,
+          "scale_radius": 6300.0,
+          "flip_y": true,
+          "flip_x": false,
+          "flip_z": false
+        },
+        "ring2": {
+          "texture_id": "jb2",
+          "radius": 6000,
+          "scale_radius": 14028.0,
+          "flip_y": true,
+          "flip_x": false,
+          "flip_z": false
+        },
+        "ring3": {
+          "texture_id": "jb3",
+          "radius": 9000,
+          "scale_radius": 28000,
+          "flip_y": true,
+          "flip_x": false,
+          "flip_z": false
+        },
+        "ring4": {
+          "texture_id": "jb4",
+          "radius": 12000,
+          "scale_radius": 56000,
+          "flip_y": true,
+          "flip_x": false,
+          "flip_z": false
+        },
+        "ring5": {
+          "texture_id": "jb5",
+          "radius": 15000,
+          "scale_radius": 112000,
+          "flip_y": true,
+          "flip_x": false,
+          "flip_z": false
+        },
+        "ring6": {
+          "texture_id": "jb6",
+          "radius": 18000,
+          "scale_radius": 224000,
+          "flip_y": true,
+          "flip_x": false,
+          "flip_z": false
+        }
+      }
+    },
+    "unknown_moon": {
+      "object_name": "J1900",
+      "x": -145000,
+      "y": 400,
+      "z": 32630,
+      "yaw": 4,
+      "pitch": 5,
+      "roll": 6,
+      "scale": 300,
+      "texture_id": "sin",
+      "collision": true,
+      "opaque": true,
+      "travel_to": "cosmos:j_1900",
+      "glowing": false,
+      "ringed": false
+    }
+  },
+  "attached_dimention_id": "cosmos:b_1400_centauri",
+  "local_id": "B1400 Cent.",
+  "skybox_data": {
+    "texture_id": "skybox_jb",
+    "alpha": 255,
+    "yaw": -18,
+    "pitch": 19,
+    "roll": -20
+  },
+  "dimensional_data": {
+    "dimension_type": "space",
+    "weather": false,
+    "clouds": false,
+    "sky_objects": false,
+    "gravity": 0,
+    "air_resistance": 1
+  },
+  "gui_data": {
+    "B1400_sys": {
+      "object_data": {
+        "J1407B": {
+          "texture_id": "jbp",
+          "scale": 0.3,
+          "ponder_scale": 1.42,
+          "yaw": 24,
+          "pitch": -165,
+          "roll": 10,
+          "yaw_speed": 0.03,
+          "pitch_speed": 0,
+          "roll_speed": 0,
+          "travel_x": -152000,
+          "travel_y": 2080,
+          "travel_z": 300,
+          "unlocking_dimension": "cosmos:j_1407blands",
+          "atmosphere": {
+            "text": "None",
+            "color": "light_gray"
+          },
+          "name": {
+            "text": "J1407B",
+            "color": "orange"
+          },
+          "type": {
+            "text": "Gas",
+            "color": "pink"
+          },
+          "conditions": {
+            "text": "Harsh",
+            "color": "purple"
+          },
+          "size": {
+            "text": "Ginormous",
+            "color": "red"
+          },
+          "category": {
+            "text": "Gas Giant",
+            "color": "orange"
+          },
+          "life": 0,
+          "ringed": true,
+          "ring_data": {
+            "ring1": {
+              "texture_id": "jb1",
+              "scale_radius": 0.675
+            },
+            "ring2": {
+              "texture_id": "jb2",
+              "scale_radius": 1.5
+            },
+            "ring3": {
+              "texture_id": "jb3",
+              "scale_radius": 3
+            },
+            "ring4": {
+              "texture_id": "jb4",
+              "scale_radius": 6
+            },
+            "ring5": {
+              "texture_id": "jb5",
+              "scale_radius": 12
+            },
+            "ring6": {
+              "texture_id": "jb6",
+              "scale_radius": 24
+            }
+          }
+        },
+        "unknown_moon": {
+          "texture_id": "sin",
+          "scale": 14.5,
+          "ponder_scale": 58,
+          "yaw": 17,
+          "pitch": -195,
+          "roll": -4,
+          "yaw_speed": 0.55,
+          "pitch_speed": 0,
+          "roll_speed": 0,
+          "travel_x": -145200,
+          "travel_y": 600,
+          "travel_z": 32730,
+          "unlocking_dimension": "cosmos:j_1900",
+          "atmosphere": {
+            "text": "None",
+            "color": "light_gray"
+          },
+          "name": {
+            "text": "J1900",
+            "color": "green"
+          },
+          "type": {
+            "text": "Rocky",
+            "color": "brown"
+          },
+          "conditions": {
+            "text": "Windy",
+            "color": "magenta"
+          },
+          "size": {
+            "text": "Dwarf",
+            "color": "lime"
+          },
+          "category": {
+            "text": "Satellite",
+            "color": "light_gray"
+          },
+          "life": 0,
+          "ringed": false
+        }
+      },
+      "travel_dimension": "cosmos:b_1400_centauri",
+      "origin_x": -40000,
+      "origin_y": 420,
+      "origin_z": 0,
+      "unlocking_dimension": "cosmos:alpha_system",
+      "background": "jb_bg",
+      "title": "B1400 Cent.",
+      "order": -2
+    }
+  }
+}

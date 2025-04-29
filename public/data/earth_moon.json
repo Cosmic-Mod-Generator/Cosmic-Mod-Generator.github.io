@@ -1,25 +1,36 @@
 {
-  "attached_dimention_id": "minecraft:overworld",
+  "attached_dimention_id": "cosmos:earth_moon",
   "skybox_data": {
     "texture_id": "skybox_solar",
-    "alpha": 245,
-    "yaw": -60,
-    "pitch": 60,
-    "roll": 60,
-    "rotation_plane": "pitch",
-    "fade": "night"
+    "alpha": 215,
+    "yaw": -50,
+    "pitch": 20,
+    "roll": 32,
+    "rotation_plane": "pitch"
   },
   "dimensional_data": {
     "dimension_type": "planet",
+    "weather": false,
+    "fog_data": {
+      "color": {
+        "r": 96,
+        "g": 96,
+        "b": 96
+      },
+      "level": 0.1
+    },
+    "clouds": false,
     "sky_objects": false,
+    "gravity": 16.6,
+    "air_resistance": 0.98,
     "atmospheric_data": {
       "atmosphere_y": 560,
       "travel_to": "cosmos:solar_system",
-      "origin_x": -24100,
-      "origin_y": 1000,
-      "origin_z": 5100,
-      "overlay_texture_id": "earth_bar",
-      "shipbit_y": 24,
+      "origin_x": -21600,
+      "origin_y": 500,
+      "origin_z": 3600,
+      "overlay_texture_id": "moon_bar",
+      "shipbit_y": 23,
       "ship_min_y": 120
     }
   },
@@ -36,7 +47,7 @@
       "yaw_speed": 0,
       "pitch_speed": 0,
       "roll_speed": 1,
-      "scale": 0.14,
+      "scale": 0.143,
       "core_color": {
         "r": 255,
         "g": 255,
@@ -48,10 +59,30 @@
         "b": 8
       }
     },
+    "mars": {
+      "type": "object",
+      "phased": false,
+      "texture_id": "mars",
+      "object_yaw": 20,
+      "object_pitch": 30,
+      "object_roll": 40,
+      "yaw": 225,
+      "pitch": 0,
+      "roll": 360,
+      "yaw_speed": 0.5,
+      "pitch_speed": 0,
+      "roll_speed": 1,
+      "scale": 0.007,
+      "atmosphere_color": {
+        "r": 255,
+        "g": 153,
+        "b": 153,
+        "alpha": 30
+      }
+    },
     "venus": {
       "type": "object",
       "phased": false,
-      "fade": "night",
       "texture_id": "venus",
       "object_yaw": 20,
       "object_pitch": 30,
@@ -59,10 +90,10 @@
       "yaw": 45,
       "pitch": 0,
       "roll": 180,
-      "yaw_speed": 0.4,
+      "yaw_speed": 0.5,
       "pitch_speed": 0,
       "roll_speed": 1,
-      "scale": 0.0075,
+      "scale": 0.008,
       "cloud_data": {
         "animation_folder": "clouds/thick/",
         "tick_delay": 40,
@@ -81,64 +112,26 @@
         "alpha": 33
       }
     },
-    "mars": {
-      "type": "object",
-      "phased": false,
-      "fade": "night",
-      "texture_id": "mars",
-      "object_yaw": 20,
-      "object_pitch": 30,
-      "object_roll": 40,
-      "yaw": 225,
-      "pitch": 0,
-      "roll": 360,
-      "yaw_speed": 0.5,
-      "pitch_speed": 0,
-      "roll_speed": 1,
-      "scale": 0.0085,
-      "atmosphere_color": {
-        "r": 255,
-        "g": 153,
-        "b": 153,
-        "alpha": 30
-      }
-    },
-    "moon": {
-      "type": "object",
-      "phased": true,
-      "texture_id": "moon",
-      "object_yaw": 45,
-      "object_pitch": 40,
-      "object_roll": 45,
-      "yaw": 0,
-      "pitch": 0,
-      "roll": 180,
-      "yaw_speed": 0,
-      "pitch_speed": 0,
-      "roll_speed": 1,
-      "scale": 0.135,
-      "atmosphere_color": {
-        "r": 204,
-        "g": 229,
-        "b": 255,
-        "alpha": 16
-      }
-    },
     "earth": {
       "type": "object",
-      "phased": false,
-      "height_map": true,
+      "phased": true,
       "texture_id": "earth",
-      "object_yaw": -7,
-      "object_pitch": 7,
-      "object_roll": 7,
+      "object_yaw": 20,
+      "object_pitch": 15,
+      "object_roll": 15,
       "yaw": 0,
       "pitch": 0,
       "roll": 180,
       "yaw_speed": 0,
       "pitch_speed": 0,
-      "roll_speed": 0,
-      "scale": 1.2,
+      "roll_speed": 1,
+      "scale": 0.52,
+      "atmosphere_color": {
+        "r": 102,
+        "g": 178,
+        "b": 255,
+        "alpha": 38
+      },
       "cloud_data": {
         "animation_folder": "clouds/high/",
         "tick_delay": 40,
@@ -147,26 +140,24 @@
           "r": 255,
           "g": 255,
           "b": 255,
-          "alpha": 235
+          "alpha": 255
         }
       }
     },
-    "earth_night": {
+    "moon": {
       "type": "object",
-      "phased": false,
-      "height_map": true,
-      "fade": "night",
-      "texture_id": "night_earth",
-      "object_yaw": -7,
-      "object_pitch": 7,
-      "object_roll": 7,
+      "phased": true,
+      "texture_id": "moon",
+      "object_yaw": 4,
+      "object_pitch": 5,
+      "object_roll": 0,
       "yaw": 0,
       "pitch": 0,
       "roll": 180,
       "yaw_speed": 0,
       "pitch_speed": 0,
       "roll_speed": 0,
-      "scale": 1.202
+      "scale": 1.05
     }
   }
 }

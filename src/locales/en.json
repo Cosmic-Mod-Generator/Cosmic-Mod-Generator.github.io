@@ -93,6 +93,7 @@
   "generator.painting_variant": "Painting Variant",
   "generator.predicate": "Predicate",
   "generator.recipe": "Recipe",
+  "generator.cosmic_data": "Cosmic Data",
   "generator.switch_version": "Switch to %0%",
   "generator.tag/banner_pattern": "Banner Pattern Tag",
   "generator.tag/block": "Block Tag",

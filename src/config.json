@@ -465,10 +465,9 @@
       "minVersion": "1.18.2"
     },
     {
-      "id": "cosmos.cosmic_data",
+      "id": "cosmic_data",
       "url": "cosmos/cosmic-data",
       "path": "cosmic_data",
-      "tags": ["partners"],
       "schema": "cosmos:cosmic_data",
       "minVersion": "1.20",
       "wiki": "https://cosmic-mod.github.io/addonsupport"

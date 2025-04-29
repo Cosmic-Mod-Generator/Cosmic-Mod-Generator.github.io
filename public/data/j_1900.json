@@ -1,0 +1,123 @@
+{
+  "attached_dimention_id": "cosmos:j_1900",
+  "skybox_data": {
+    "texture_id": "skybox_jb",
+    "alpha": 200,
+    "yaw": -56,
+    "pitch": 20,
+    "roll": 100,
+    "rotation_plane": "pitch"
+  },
+  "dimensional_data": {
+    "dimension_type": "planet",
+    "weather": false,
+    "clouds": false,
+    "sky_objects": false,
+    "gravity": 18.76,
+    "air_resistance": 0.98,
+    "atmospheric_data": {
+      "atmosphere_y": 560,
+      "travel_to": "cosmos:b_1400_centauri",
+      "origin_x": -145200,
+      "origin_y": 600,
+      "origin_z": 32730,
+      "overlay_texture_id": "unknown_moon_bar",
+      "shipbit_y": 28,
+      "ship_min_y": 120
+    }
+  },
+  "sky_data": {
+    "sun": {
+      "type": "object",
+      "phased": false,
+      "object_yaw": 45,
+      "object_pitch": 40,
+      "object_roll": 35,
+      "yaw": 0,
+      "pitch": 0,
+      "roll": 0,
+      "yaw_speed": 0,
+      "pitch_speed": 0,
+      "roll_speed": 1,
+      "scale": 0.1,
+      "core_color": {
+        "r": 255,
+        "g": 255,
+        "b": 255
+      },
+      "bloom_color": {
+        "r": 64,
+        "g": 32,
+        "b": 16
+      }
+    },
+    "jb": {
+      "type": "object",
+      "phased": false,
+      "texture_id": "jbp",
+      "object_yaw": 10,
+      "object_pitch": 6,
+      "object_roll": -12.5,
+      "yaw": 0,
+      "pitch": 80,
+      "roll": 0,
+      "yaw_speed": 1,
+      "pitch_speed": 0,
+      "roll_speed": 0,
+      "scale": 0.085,
+      "atmosphere_color": {
+        "r": 255,
+        "g": 193,
+        "b": 121,
+        "alpha": 34
+      },
+      "ring_data": {
+        "ring1": {
+          "texture_id": "jb1",
+          "scale_radius": 0.19125,
+          "radius": 4
+        },
+        "ring2": {
+          "texture_id": "jb2",
+          "scale_radius": 0.425,
+          "radius": 8
+        },
+        "ring3": {
+          "texture_id": "jb3",
+          "scale_radius": 0.85,
+          "radius": 16
+        },
+        "ring4": {
+          "texture_id": "jb4",
+          "scale_radius": 1.7,
+          "radius": 32
+        },
+        "ring5": {
+          "texture_id": "jb5",
+          "scale_radius": 3.4,
+          "radius": 64
+        },
+        "ring6": {
+          "texture_id": "jb6",
+          "scale_radius": 6.8,
+          "radius": 128
+        }
+      }
+    },
+    "sin": {
+      "type": "object",
+      "phased": true,
+      "texture_id": "sin",
+      "object_yaw": 4,
+      "object_pitch": 5,
+      "object_roll": 6,
+      "yaw": 0,
+      "pitch": 0,
+      "roll": 180,
+      "yaw_speed": 0,
+      "pitch_speed": 0,
+      "roll_speed": 0,
+      "scale": 0.95
+    }
+  }
+}
