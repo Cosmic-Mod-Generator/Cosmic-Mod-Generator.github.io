@@ -28,5 +28,6 @@
   "cosmos.sky_data.cloud_data.animation_folder.help": "The folder where animation frames are stored. Must end in a '/' to signify folder. Frames MUST be named '1.png' '2.png' etc",
   "cosmos.planet_data.cloud_data.cloud_color.help": "The color overlay put onto the cloud animation frames",
   "cosmos.sky_data.cloud_data.cloud_color.help": "The color overlay put onto the cloud animation frames",
-  "cosmos.planet_data.model_type.help": "If an object is a blackhole, texture_id (and some other data) is ignored"
+  "cosmos.planet_data.model_type.help": "If an object is a blackhole, texture_id (and some other data) is ignored",
+  "cosmos.planet_data.object_name.help": "I don't know what this is for, but its used in default CH files"
 }

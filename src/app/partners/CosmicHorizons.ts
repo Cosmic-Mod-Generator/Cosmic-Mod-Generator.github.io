@@ -87,6 +87,8 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 
 	schemas.register(`${ID}:planet_data`, ObjectNode({
 
+		object_name: Opt(StringNode()),
+
 		x: NumberNode({integer:true}),
 		y: NumberNode({integer:true}),
 		z: NumberNode({integer:true}),
@@ -231,9 +233,9 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 		phased: conditionalNode(BooleanNode(), ['type'], 'object'),
 
 		// The objects rotation
-		object_yaw: conditionalNode(NumberNode({integer: true, min: -360, max: 360}), ['type'], 'object'),
-		object_pitch: conditionalNode(NumberNode({integer: true, min: -360, max: 360}), ['type'], 'object'),
-		object_roll: conditionalNode(NumberNode({integer: true, min: -360, max: 360}), ['type'], 'object'),
+		object_yaw: conditionalNode(NumberNode({min: -360, max: 360}), ['type'], 'object'),
+		object_pitch: conditionalNode(NumberNode({min: -360, max: 360}), ['type'], 'object'),
+		object_roll: conditionalNode(NumberNode({min: -360, max: 360}), ['type'], 'object'),
 
 		// Its intial rotation around the planet OR the rings rotation
 		yaw: NumberNode({min: -360, max: 360}),
@@ -246,7 +248,11 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 
 		scale: conditionalNode(NumberNode({integer: false}), ['type'], 'object'),
 		
-		texture_id: conditionalNode(Opt(StringNode()), ['type'], 'object'),
+		texture_id: Mod(Opt(StringNode()), {
+			enabled: (path) => {
+				return (path.push('type').get() == 'object') || (path.push('type').get() == 'ring')
+			}
+		}), 
 
 		// More complicated than conditionalNode can do
 		core_color: Mod(Reference(`${ID}:rgb`), {
@@ -295,11 +301,15 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 		),
 
 		// ----- Ring sky objects ----- //
-		ring_data: conditionalNode(ObjectNode({
-			texture_id: StringNode(),
-			additive: BooleanNode(),
-			scale_radius: NumberNode({integer: false, min: 0.01})
-		}), ['type'], 'ring'),
+		additive: conditionalNode(
+			BooleanNode(), 
+			['type'], 'ring'
+		),
+		scale_radius: conditionalNode(
+			NumberNode({integer: false, min: 0.01}), 
+			['type'], 'ring'
+		),
+		
 
 	}, { context: `${ID}.sky_data` }))
 
