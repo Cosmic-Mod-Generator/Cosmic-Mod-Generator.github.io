@@ -56,7 +56,7 @@ export function Header() {
 					</BtnMenu>
 				</li>
 				<li class="dimmed">
-					<a href="https://github.com/misode/misode.github.io" target="_blank" rel="noreferrer" class="tooltipped tip-sw" aria-label={locale('github')}>
+					<a href="https://github.com/Cosmic-Mod/Cosmic-Mod.github.io" target="_blank" rel="noreferrer" class="tooltipped tip-sw" aria-label={locale('github')}>
 						{Octicon.mark_github}
 					</a>
 				</li>

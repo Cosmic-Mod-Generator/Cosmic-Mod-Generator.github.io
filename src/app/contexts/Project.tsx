@@ -164,7 +164,7 @@ export function getFilePath(file: { id: string, type: string }, version: Version
 		if (file.id === 'pack') return 'pack.mcmeta'
 		return undefined
 	}
-	if (file.type === 'cosmos.cosmic_data') {
+	if (file.type === 'cosmic_data') {
 		return `data/cosmos/cosmic_data/${id}.json`
 	}
 	const gen = config.generators.find(g => g.id === file.type)

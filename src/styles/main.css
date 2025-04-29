@@ -13,3 +13,7 @@ a {
 input::placeholder {
 	color: rgb(117, 117, 117);
 }
+
+.pp {
+	padding: 10px;
+}

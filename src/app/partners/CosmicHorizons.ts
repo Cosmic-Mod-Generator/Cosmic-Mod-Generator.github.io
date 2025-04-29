@@ -8,7 +8,7 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 	const StringNode = RawStringNode.bind(undefined, collections)
 
 	// Register presets, will search for them at /data/{id}.json
-	collections.register('cosmos.cosmic_data', ['solar_system', 'overworld', 'cosmos:moon', 'cosmos:star'])
+	collections.register('cosmic_data', ['alpha_system', 'b_1400_centauri', 'earth_moon', 'europa_lands', 'venuslands', 'gaia_bh_1', 'glacio_lands', 'j_1407blands', 'j_1900', 'jupiterlands', 'marslands', 'mercury_wasteland', 'neptune_lands', 'overworld', 'plutowastelands', 'saturn_lands', 'solar_system', 'uranus_lands'])
 	
 	// Don't ask about the typescript nonesense, all I know is that it works
 	function conditionalNode<T extends INode<any>>(node: T, conditionPath: string[], conditionValue: any): T {
@@ -91,9 +91,9 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 		y: NumberNode({integer:true}),
 		z: NumberNode({integer:true}),
 
-		yaw: NumberNode({integer:true}),
-		pitch: NumberNode({integer:true}),
-		roll: NumberNode({integer:true}),
+		yaw: NumberNode(),
+		pitch: NumberNode(),
+		roll: NumberNode(),
 
 		scale: NumberNode({integer:true,min:10}),
 			//StringNode(),
@@ -106,9 +106,9 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 
 		bloom_color: conditionalNode(Reference(`${ID}:rgb`), ['glowing'], true),
 
-		travel_to: conditionalNode(Reference(`${ID}:dimension`), ['glowing'], false),
+		travel_to: Opt(conditionalNode(Reference(`${ID}:dimension`), ['glowing'], false)),
 
-		opaque: conditionalNode(BooleanNode(), ['glowing'], false),
+		opaque: Opt(conditionalNode(BooleanNode(), ['glowing'], false)),
 
 		inverse_texture_id: Mod(Opt(StringNode()), {
 			enabled: (path) => {
@@ -170,12 +170,27 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 			), 
 		['ringed'], true),
 
+		model_type: conditionalNode(
+			Opt(StringNode({enum: ['black_hole']})),
+			['glowing'], false
+		),
+
+		model_data: conditionalNode(
+			ObjectNode({
+				color: Reference(`${ID}:rgb`),
+				intensity: NumberNode({integer: true, min: 0}),
+        		step: NumberNode({integer: true, min: 0}),
+        		speed: NumberNode({integer: true, min: 0}),
+			}), 
+			['model_type'], 'black_hole'
+		)
+
 	}, { context: `${ID}.planet_data` }))
 
 	schemas.register(`${ID}:atmo_data`, ObjectNode({
 
 		atmosphere_y: NumberNode({integer: true}),
-		travel_to: Reference(`${ID}:dimension`),
+		travel_to: Opt(Reference(`${ID}:dimension`)),
 
 		origin_x: NumberNode({integer: true}),
 		origin_y: NumberNode({integer: true}),
@@ -327,7 +342,7 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 	schemas.register(`${ID}:guiplanet`, ObjectNode({
 		texture_id: StringNode(),
 
-		scale: NumberNode({min:1, max: 50}),
+		scale: NumberNode({min:0, max: 50}),
 		ponder_scale: NumberNode({min:1, max: 100}),
 
 		yaw: NumberNode({integer:true}),
