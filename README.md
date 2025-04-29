@@ -1,7 +1,16 @@
-# misode.github.io
-Data Pack Generators and Guides for Minecraft Java Edition
+# Cosmic Horizons Generator
+Data Pack Generator for Cosmic Horizons (and java edition 1.20)
 
-https://misode.github.io/
+Forked from https://misode.github.io/ . Thanks guys for the super generous forking rules! :D
+
+Though, in an attempt to not simply steal their entire website, we _have_ made some large changes.
+
+(Along with the changes they recommend in the readme)
+
+Most notably, we have removed all Minecraft versions except 1.20(.1), since thats the only version Cosmic Horizons supports.
+
+We have also removed the other modded generators. We highly recommend you checkout misode.github.io for these features, 
+and if neccesary datapacks can be imported as projects between these sites
 
 ## Contributing
 This project uses [Preact](https://preactjs.com/) and [Vite](https://vitejs.dev/).
@@ -13,13 +22,6 @@ npm run dev
 ```
 4. Open the browser in `localhost:3000`.
 
-## Translating
-misode.github.io supports multiple languages. If you'd like to help us translate this project to your language, it would be really appreciated! If your language is not on this list, please create an issue for it.
+## Translations
 
-[![Localization status](https://l10n.spgoding.com/widgets/minecraft-schemas/-/multi-auto.svg)](https://l10n.spgoding.com/engage/minecraft-schemas/?utm_source=widget)
-
-1. Go to the [localization website](https://l10n.spgoding.com) (hosted by [SPGoding](https://github.com/SPGoding)).
-2. [Register](https://l10n.spgoding.com/accounts/register) by linking your GitHub account (recommended), or using your email.
-    - Note that the username and email will be shown in the [repository](https://github.com/misode/misode.github.io)'s git commit log.
-3. See the components of misode.github.io [here](https://l10n.spgoding.com/projects/minecraft-schemas/).
-4. Start translating!
+We have re-used the language translation files from Misode, with some slight tweaks. But we are happy to take these down, and try to build our own language files, if Misode would like us to.
