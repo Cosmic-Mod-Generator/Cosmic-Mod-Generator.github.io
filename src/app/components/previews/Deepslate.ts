@@ -103,19 +103,14 @@ export class Deepslate {
 				throw new Error('size_horizontal or size_vertical cannot be zero')
 			}
 			const biomeSource = await this.createBiomeSource(noiseSettings, biomeState, seed)
-			const chunkGenerator = this.isVersion('1.19')
-				?	new this.d.NoiseChunkGenerator(biomeSource, noiseSettings)
-				: new (this.d.NoiseChunkGenerator as any)(seed, biomeSource, noiseSettings)
+			const chunkGenerator = new (this.d.NoiseChunkGenerator as any)(seed, biomeSource, noiseSettings)
 			this.settingsCache = noiseSettings.noise
 			this.generatorCache = chunkGenerator
-			if (this.isVersion('1.19')) {
-				this.randomStateCache = new this.d.RandomState(noiseSettings, seed)
-				this.routerCache = this.randomStateCache.router
-			} else {
-				this.randomStateCache = undefined
-				
-				this.routerCache = undefined
-			}
+			
+			this.randomStateCache = undefined
+			
+			this.routerCache = undefined
+			
 			this.biomeSourceCache = {
 				getBiome: (x, y, z) => biomeSource.getBiome(x, y, z, undefined!),
 			}
@@ -135,83 +130,55 @@ export class Deepslate {
 			})
 			biomeState = { type: biomeState.type, biomes }
 		}
-		if (this.isVersion('1.19')) {
-			const bs = this.d.BiomeSource.fromJson(biomeState)
-			return bs
-		} else {
-			const root = isObject(biomeState) ? biomeState : {}
-			const type = typeof root.type === 'string' ? root.type.replace(/^minecraft:/, '') : undefined
-			switch (type) {
-				case 'fixed':
-					return new (this.d as any).FixedBiome(this.isVersion('1.18.2') ? this.d.Identifier.parse(root.biome as string) : root.biome as any)
-				case 'checkerboard':
-					const shift = (root.scale ?? 2) + 2
-					const numBiomes = root.biomes?.length ?? 0
-					return { getBiome: (x: number, _y: number, z: number) => {
-						const i = (((x >> shift) + (z >> shift)) % numBiomes + numBiomes) % numBiomes
-						const biome = root.biomes?.[i]
-						return this.isVersion('1.18.2') ? this.d.Identifier.parse(biome) : biome
-					} }
-				case 'multi_noise':
-					if (this.isVersion('1.18')) {
-						const parameters = new this.d.Climate.Parameters(root.biomes.map((b: any) => {
-							const biome = this.isVersion('1.18.2') ? this.d.Identifier.parse(b.biome) : b.biome
-							return [this.d.Climate.ParamPoint.fromJson(b.parameters), () => biome]
-						}))
-						const multiNoise = new (this.d as any).MultiNoise(parameters)
-						let sampler: any
-						if (this.isVersion('1.18.2')) {
-							const router = this.d.NoiseRouter.create({
-								temperature: new this.d.DensityFunction.Noise(0.25, 0, (this.d as any).Noises.TEMPERATURE),
-								vegetation: new this.d.DensityFunction.Noise(0.25, 0, (this.d as any).Noises.VEGETATION),
-								continents: new this.d.DensityFunction.Noise(0.25, 0, (this.d as any).Noises.CONTINENTALNESS),
-								erosion: new this.d.DensityFunction.Noise(0.25, 0, (this.d as any).Noises.EROSION),
-								ridges: new this.d.DensityFunction.Noise(0.25, 0, (this.d as any).Noises.RIDGE),
-							})
-							sampler = this.d.Climate.Sampler.fromRouter((this.d.NoiseRouter as any).withSettings(router, noiseSettings, seed))
-						} else {
-							const noiseSampler = new (this.d as any).NoiseSampler(this.d.NoiseSettings.fromJson(null), true, seed, true)
-							sampler = (x: number, y: number, z: number) => noiseSampler.sample(x, y, z)
+		
+		const root = isObject(biomeState) ? biomeState : {}
+		const type = typeof root.type === 'string' ? root.type.replace(/^minecraft:/, '') : undefined
+		switch (type) {
+			case 'fixed':
+				return new (this.d as any).FixedBiome(root.biome as any)
+			case 'checkerboard':
+				const shift = (root.scale ?? 2) + 2
+				const numBiomes = root.biomes?.length ?? 0
+				return { getBiome: (x: number, _y: number, z: number) => {
+					const i = (((x >> shift) + (z >> shift)) % numBiomes + numBiomes) % numBiomes
+					const biome = root.biomes?.[i]
+					return biome
+				} }
+			case 'multi_noise':
+				
+				const noise = ['altitude', 'temperature', 'humidity', 'weirdness']
+					.map((id, i) => {
+						const config = root[`${id}_noise`]
+						config.firstOctave = clamp(config.firstOctave ?? -7, -100, -1)
+						return new this.d.NormalNoise(new this.d.LegacyRandom(seed + BigInt(i)), config)
+					})
+				if (!Array.isArray(root.biomes) || root.biomes.length === 0) {
+					return { getBiome: () => this.d.Identifier.create('unknown') }
+				}
+				return { getBiome: (x: number, _y: number, z: number) => {
+					const n = noise.map(n => n.sample(x, z, 0))
+					let minDist = Infinity
+					let minBiome = 'unknown'
+					for (const { biome, parameters: p } of root.biomes) {
+						const dist = square(p.altitude - n[0]) + square(p.temperature - n[1]) + square(p.humidity - n[2]) + square(p.weirdness - n[3]) + square(p.offset)
+						if (dist < minDist) {
+							minDist = dist
+							minBiome = biome
 						}
-						return { getBiome: (x: number, y: number, z: number) => {
-							return multiNoise.getBiome(x, y, z, sampler)
-						} }
-					} else {
-						const noise = ['altitude', 'temperature', 'humidity', 'weirdness']
-							.map((id, i) => {
-								const config = root[`${id}_noise`]
-								config.firstOctave = clamp(config.firstOctave ?? -7, -100, -1)
-								return new this.d.NormalNoise(new this.d.LegacyRandom(seed + BigInt(i)), config)
-							})
-						if (!Array.isArray(root.biomes) || root.biomes.length === 0) {
-							return { getBiome: () => this.d.Identifier.create('unknown') }
-						}
-						return { getBiome: (x: number, _y: number, z: number) => {
-							const n = noise.map(n => n.sample(x, z, 0))
-							let minDist = Infinity
-							let minBiome = 'unknown'
-							for (const { biome, parameters: p } of root.biomes) {
-								const dist = square(p.altitude - n[0]) + square(p.temperature - n[1]) + square(p.humidity - n[2]) + square(p.weirdness - n[3]) + square(p.offset)
-								if (dist < minDist) {
-									minDist = dist
-									minBiome = biome
-								}
-							}
-							return minBiome as unknown as deepslate19.Identifier
-						} }
 					}
-				default: throw new Error(`Unsupported biome source ${type}`)
-			}
+					return minBiome as unknown as deepslate19.Identifier
+				} }
+				
+			default: throw new Error(`Unsupported biome source ${type}`)
 		}
+		
 	}
 
 	private createNoiseSettings(settings: unknown): deepslate19.NoiseGeneratorSettings {
 		if (typeof settings === 'string') {
-			if (this.isVersion('1.19')) {
-				return this.d.WorldgenRegistries.NOISE_SETTINGS.getOrThrow(this.d.Identifier.parse(settings))
-			} else {
-				return this.d.NoiseGeneratorSettings.fromJson(undefined)
-			}
+			
+			return this.d.NoiseGeneratorSettings.fromJson(undefined)
+			
 		} else {
 			return this.d.NoiseGeneratorSettings.fromJson(settings)
 		}
@@ -237,7 +204,7 @@ export class Deepslate {
 			}
 			if (checkVersion(this.loadedVersion!, '1.19')) {
 				if (!this.randomStateCache) {
-					throw new Error('Tried to generate chunks before random state is loaded')
+					throw new Error('Tried ltiNoise(parameters) anyto generate chunks before random state is loaded')
 				}
 				this.generatorCache.fill(this.randomStateCache, chunk, true)
 				this.generatorCache.buildSurface(this.randomStateCache, chunk, biome)
@@ -252,58 +219,35 @@ export class Deepslate {
 
 	public getBiome(x: number, y: number, z: number) {
 		return computeIfAbsent(this.biomeCache, `${x}:${y}:${z}`, () => {
-			if (this.isVersion('1.19')) {
-				if (!this.randomStateCache || !this.generatorCache) {
-					throw new Error('Tried to compute biomes before random state is loaded')
-				}
-				return this.generatorCache.computeBiome(this.randomStateCache, x, y, z).toString()
-			} else {
-				if(!this.biomeSourceCache) {
-					throw new Error('Tried to compute biomes before biome source is loaded')
-				}
-				return this.biomeSourceCache.getBiome(x, y, z).toString()
+			
+			if(!this.biomeSourceCache) {
+				throw new Error('Tried to compute biomes before biome source is loaded')
 			}
+			return this.biomeSourceCache.getBiome(x, y, z).toString()
+			
 		})
 	}
 
 	public loadDensityFunction(state: unknown, minY: number, height: number, seed: bigint) {
-		if (this.isVersion('1.19')) {
-			const settings = this.d.NoiseGeneratorSettings.create({
-				noise: {
-					minY: minY,
-					height: height,
-					xzSize: 1,
-					ySize: 2,
-				},
-				noiseRouter: this.d.NoiseRouter.create({
-					finalDensity: this.d.DensityFunction.fromJson(state),
-				}),
-			})
-			this.settingsCache = settings.noise
-			const randomState = new this.d.RandomState(settings, seed)
-			return randomState.router.finalDensity
-		} else {
-			const random = this.d.XoroshiroRandom.create(seed).forkPositional()
-			const settings = this.d.NoiseSettings.fromJson({
-				min_y: minY,
-				height: height,
-				size_horizontal: 1,
-				size_vertical: 2,
-				sampling: { xz_scale: 1, y_scale: 1, xz_factor: 80, y_factor: 160 },
-				bottom_slide: { target: 0.1171875, size: 3, offset: 0 },
-				top_slide: { target: -0.078125, size: 2, offset: 8 },
-				terrain_shaper: { offset: 0.044, factor: 4, jaggedness: 0 },
-			})
-			this.settingsCache = settings
-			const originalFn = this.d.DensityFunction.fromJson(state)
-			return originalFn.mapAll(new (this.d.NoiseRouter as any).Visitor(random, settings))
-		}
+		
+		const random = this.d.XoroshiroRandom.create(seed).forkPositional()
+		const settings = this.d.NoiseSettings.fromJson({
+			min_y: minY,
+			height: height,
+			size_horizontal: 1,
+			size_vertical: 2,
+			sampling: { xz_scale: 1, y_scale: 1, xz_factor: 80, y_factor: 160 },
+			bottom_slide: { target: 0.1171875, size: 3, offset: 0 },
+			top_slide: { target: -0.078125, size: 2, offset: 8 },
+			terrain_shaper: { offset: 0.044, factor: 4, jaggedness: 0 },
+		})
+		this.settingsCache = settings
+		const originalFn = this.d.DensityFunction.fromJson(state)
+		return originalFn.mapAll(new (this.d.NoiseRouter as any).Visitor(random, settings))
+		
 	}
 
 	public loadStructureSet(state: unknown, seed: bigint) {
-		if (!this.isVersion('1.19')) {
-			throw new Error('Cannot load structure set prior to 1.19')
-		}
 		const settings = this.d.NoiseGeneratorSettings.create({
 			noise: {
 				minY: 0,
