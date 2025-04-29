@@ -4,7 +4,7 @@ import { useEffect, useMemo, useRef, useState } from 'preact/hooks'
 import { useLocale } from '../../contexts/index.js'
 import { useAsync } from '../../hooks/useAsync.js'
 import type { VersionId } from '../../services/index.js'
-import { checkVersion, fetchAllPresets } from '../../services/index.js'
+import { fetchAllPresets } from '../../services/index.js'
 import { jsonToNbt } from '../../Utils.js'
 import { Btn, BtnMenu } from '../index.js'
 import { ItemDisplay } from '../ItemDisplay.jsx'
@@ -205,26 +205,14 @@ function allIngredientChoices(version: VersionId, ingredient: any, itemTags: Map
 		return ingredient.flatMap(i => allIngredientChoices(version, i, itemTags))
 	}
 
-	if (checkVersion(version, '1.21.2')) {
-		if (ingredient !== null) {
-			if (typeof ingredient === 'string') {
-				if (ingredient.startsWith('#')) {
-					return parseTag(version, ingredient.slice(1), itemTags)
-				}
-				return [new ItemStack(Identifier.parse(ingredient), 1)]
-			}
-		}
-
-		return [new ItemStack(Identifier.create('stone'), 1)]
-	} else {
-		if (typeof ingredient === 'object' && ingredient !== null) {
-			if (typeof ingredient.item === 'string') {
-				return [new ItemStack(Identifier.parse(ingredient.item), 1)]
-			} else if (typeof ingredient.tag === 'string') {
-				return parseTag(version, ingredient.tag, itemTags)
-			}
+	if (typeof ingredient === 'object' && ingredient !== null) {
+		if (typeof ingredient.item === 'string') {
+			return [new ItemStack(Identifier.parse(ingredient.item), 1)]
+		} else if (typeof ingredient.tag === 'string') {
+			return parseTag(version, ingredient.tag, itemTags)
 		}
 	}
+	
 
 	return []
 }

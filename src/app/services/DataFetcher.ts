@@ -295,17 +295,7 @@ export async function fetchLanguage(versionId: VersionId, lang: string = 'en_us'
 	await validateCache(version)
 	try {
 		const translations = await cachedFetch<Record<string, string>>(`${mcmeta(version, 'assets')}/assets/minecraft/lang/${lang}.json`)
-		if (checkVersion(versionId, '1.21.2')) {
-			const deprecated = await cachedFetch<DeprecatedInfo>(`${mcmeta(version, 'assets')}/assets/minecraft/lang/deprecated.json`)
-			for (const key of deprecated.removed) {
-				delete translations[key]
-			}
-			for (const [oldKey, newKey] of Object.entries(deprecated.renamed)) {
-				const value = translations[oldKey]
-				delete translations[oldKey]
-				translations[newKey] = value
-			}
-		}
+		
 		return translations
 	} catch (e) {
 		throw new Error(`Error occured while fetching language: ${message(e)}`)
