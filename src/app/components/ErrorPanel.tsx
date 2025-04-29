@@ -42,7 +42,7 @@ export function ErrorPanel({ error, prefix, reportable, onDismiss, body: body_, 
 	}, [error])
 
 	const url = useMemo(() => {
-		let url ='https://github.com/Cosmic-Mod/Cosmic-Mod.github.io/issues/new'
+		let url ='https://github.com/Cosmic-Mod-Generator/Cosmic-Mod-Generator.github.io/issues/new'
 		const fullName = (error instanceof Error ? `${error.name}: ` : '') + name
 		url += `?title=${encodeURIComponent(fullName)}`
 		let body = ''

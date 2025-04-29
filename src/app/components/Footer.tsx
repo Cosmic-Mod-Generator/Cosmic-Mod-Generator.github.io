@@ -13,7 +13,7 @@ export function Footer({ }: Props) {
 		</p>
 		<p>
 			{Octicon.mark_github}
-			<span>{locale('source_code_on')} <a href="https://github.com/Cosmic-Mod/Cosmic-Mod.github.io" target="_blank" rel="noreferrer">{locale('github')}</a></span>
+			<span>{locale('source_code_on')} <a href="https://github.com/Cosmic-Mod-Generator/Cosmic-Mod-Generator.github.io" target="_blank" rel="noreferrer">{locale('github')}</a></span>
 		</p>
 	</footer>
 }
