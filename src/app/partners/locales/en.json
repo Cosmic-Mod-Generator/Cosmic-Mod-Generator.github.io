@@ -29,5 +29,8 @@
   "cosmos.planet_data.cloud_data.cloud_color.help": "The color overlay put onto the cloud animation frames",
   "cosmos.sky_data.cloud_data.cloud_color.help": "The color overlay put onto the cloud animation frames",
   "cosmos.planet_data.model_type.help": "If an object is a blackhole, texture_id (and some other data) is ignored",
-  "cosmos.planet_data.object_name.help": "I don't know what this is for, but its used in default CH files"
+  "cosmos.planet_data.object_name.help": "I don't know what this is for, but its used in default CH files",
+  "cosmos.planet_data.model_data.intensity.help": "The brightness of the blackhole",
+  "cosmos.planet_data.model_data.step.help": "The quality of the rings. Recommended is 3 < x < 10",
+  "cosmos.planet_data.model_data.speed.help": "The speed at which the disk rotates"
 }
