@@ -108,6 +108,8 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 
 		bloom_color: conditionalNode(Reference(`${ID}:rgb`), ['glowing'], true),
 
+		collision: BooleanNode(),
+
 		travel_to: Opt(conditionalNode(Reference(`${ID}:dimension`), ['glowing'], false)),
 
 		opaque: Opt(conditionalNode(BooleanNode(), ['glowing'], false)),
