@@ -32,5 +32,20 @@
   "cosmos.planet_data.object_name.help": "I don't know what this is for, but its used in default CH files",
   "cosmos.planet_data.model_data.intensity.help": "The brightness of the blackhole",
   "cosmos.planet_data.model_data.step.help": "The quality of the rings. Recommended is 3 < x < 10",
-  "cosmos.planet_data.model_data.speed.help": "The speed at which the disk rotates"
+  "cosmos.planet_data.model_data.speed.help": "The speed at which the disk rotates",
+  "partner.valkyrienskies": "Valkyrien Skies",
+  "generator.vs_mass": "VS Block Properties",
+  "valkyrienskies.list_node.entry": "Block Entry",
+  "valkyrienskies.list_node.entry.block": "Block",
+  "valkyrienskies.list_node.entry.mass": "Mass",
+  "valkyrienskies.list_node.entry.mass.help": "The weight of the block in kg",
+  "valkyrienskies.list_node.entry.friction": "Friction",
+  "valkyrienskies.list_node.entry.friction.help": "Default is 0.5, ice is 0.05",
+  "valkyrienskies.list_node.entry.elasticity": "Elasticity",
+  "valkyrienskies.list_node.entry.elasticity.help": "The 'Bounciness' of the block. Default is 0.3, slime is 1.0",
+  "valkyrienskies.list_node.entry.priority": "Priority",
+  "valkyrienskies.list_node.entry.priority.help": "Default is 100, you may need higher to override default values or other packs",
+  "generator.vs_entities": "VS Entities",
+  "handler": "Handler",
+  "handler.help": "Default: entity moved to world. Shipyard: entity stays on ship. NOTE: Save this file as entitynamespace:entity, or it WILL NOT WORK. For example, immersive_paintings:painting"
 }
