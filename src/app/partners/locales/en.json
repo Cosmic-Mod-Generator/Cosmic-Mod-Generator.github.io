@@ -47,5 +47,14 @@
   "valkyrienskies.list_node.entry.priority.help": "Default is 100, you may need higher to override default values or other packs",
   "generator.vs_entities": "VS Entities",
   "handler": "Handler",
-  "handler.help": "Default: entity moved to world. Shipyard: entity stays on ship. NOTE: Save this file as entitynamespace:entity, or it WILL NOT WORK. For example, immersive_paintings:painting"
+  "handler.help": "Default: entity moved to world. Shipyard: entity stays on ship. NOTE: Save this file as entitynamespace:entity, or it WILL NOT WORK. For example, immersive_paintings:painting",
+  "generator.planets": "Ad Astra planet",
+  "dimension": "dimension",
+  "dimension.help": "The dimension id of the planet, in the form namespace:name",
+  "gravity.help": "Due to floating point precision, the actual gravity may be slightly off in-game",
+  "orbit.help": "The orbit dimension id. If left blank, this planet is treated as an orbit dimension",
+  "solar_system.help": "Controls where the planet will be on the selector screen",
+  "temperature.help": "Below -50 will freeze, above 70 will burn",
+  "tier.help": "The minimum rocket tier required to reach this planet",
+  "additional_launch_dimensions.help": "Additional dimensions that the player can launch from"
 }

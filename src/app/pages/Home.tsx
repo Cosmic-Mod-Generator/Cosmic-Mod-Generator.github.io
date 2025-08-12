@@ -44,7 +44,7 @@ function PopularGenerators() {
 	const { locale } = useLocale()
 	return <ToolGroup title={locale('generators.popular')} link="/generators/">
 		<GeneratorCard minimal id="cosmic_data" />
-		<GeneratorCard minimal id="vs_mass" />
+		<GeneratorCard minimal id="planets" />
 		<GeneratorCard minimal id="recipe" />
 		<ToolCard title={locale('worldgen')} link="/worldgen/" titleIcon="worldgen" />
 		<ToolCard title={locale('generators.all')} link="/generators/" titleIcon="arrow_right" />

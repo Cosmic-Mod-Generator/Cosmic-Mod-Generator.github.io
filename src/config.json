@@ -487,6 +487,14 @@
       "minVersion": "1.20"
     },
     {
+      "id": "planets",
+      "url": "ad_astra/planets",
+      "path": "planets",
+      "schema": "ad_astra:planets",
+      "minVersion": "1.20",
+      "wiki": "https://ad-astra.terrarium.wiki/datapack.html"
+    },
+    {
       "id": "obsidian.item",
       "url": "obsidian/item",
       "path": "obsidian_item",

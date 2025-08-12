@@ -169,6 +169,8 @@ export async function fetchPreset(versionId: VersionId, registry: string, id: st
 		} else if (registry == "cosmic_data") {
 			fetchAllPresets(versionId, 'loot_table'),
 			url = `/data/${id}.json`
+		} else if (registry == "planets") {
+			url = `https://raw.githubusercontent.com/terrarium-earth/Ad-Astra/refs/heads/1.20.1/common/src/main/generated/resources/data/ad_astra/planets/${id}.json`
 		}
 		else {
 			const type = ['atlases', 'blockstates', 'items', 'models', 'font'].includes(registry) ? 'assets' : 'data'
