@@ -1,4 +1,4 @@
-import type { CollectionRegistry, SchemaRegistry } from '@mcschema/core'
+import type { CollectionRegistry, INode, SchemaRegistry } from '@mcschema/core'
 import { BooleanNode, ChoiceNode, ListNode, Mod, NumberNode, ObjectNode, Opt, Reference as RawReference, StringNode as RawStringNode } from '@mcschema/core'
 
 const ID = 'valkyrienskies'
@@ -7,6 +7,14 @@ export function initValkyrienSkies(schemas: SchemaRegistry, collections: Collect
 	const Reference = RawReference.bind(undefined, schemas)
 	const StringNode = RawStringNode.bind(undefined, collections)
 	
+	collections.register('vs_mass', ['1_18_blocks', 'computercraft', 'crafting_stations', 'ground', 'masonry', 'misc', 'plants', 'redstone_components', 'wood'])
+
+	function conditionalNode<T extends INode<any>>(node: T, conditionPath: string[], conditionValue: any): T {
+			return Mod(node, {
+				enabled: path => conditionPath.reduce((p, segment) => p.push(segment), path).get() === conditionValue,
+			}) as T;
+		}
+
 	schemas.register(`${ID}:vs_mass`, 
 		Mod(
 			ChoiceNode(
@@ -36,10 +44,21 @@ export function initValkyrienSkies(schemas: SchemaRegistry, collections: Collect
 	schemas.register(`${ID}:list_node`, 
 		ListNode(
 			ObjectNode({
-				block: StringNode({
+				
+				// They can provide a 'block': 'namespace:whatever'
+				block: conditionalNode(StringNode({
 					validator: 'resource',
 					params: { pool: 'block' },
 				}),
+				['tag'], undefined),
+
+				// OR a 'tag':'namespace:a_tag'
+				tag: conditionalNode(StringNode({
+					validator: 'resource',
+					params: {pool: '$tag/block'}
+				}), ['block'], undefined),
+
+				// All optional (although should probably have atleast one)
 				mass: Opt(NumberNode({min: 0.0})),
 				friction: Opt(NumberNode({min: 0.0})),
 				elasticity: Opt(NumberNode({min: 0.0})),
