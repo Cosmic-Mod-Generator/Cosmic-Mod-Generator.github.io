@@ -70,6 +70,26 @@ export function initValkyrienSkies(schemas: SchemaRegistry, collections: Collect
 		)
 	)
 
+	collections.register('vs_entities', [
+		'minecraft/armor_stand', 
+		'minecraft/chest_minecart', 
+		'minecraft/end_crystal', 
+		'minecraft/furnace_minecart', 
+		'minecraft/glow_item_frame', 
+		'minecraft/hopper_minecart', 
+		'minecraft/item_frame', 
+		'minecraft/leash_knot', 
+		'minecraft/minecart', 
+		'minecraft/painting', 
+		'minecraft/tnt_minecart', 
+		'create/carriage_contraption', 
+		'create/contraption', 
+		'create/gantry_contraption', 
+		'create/seat', 
+		'create/stationary_contraption', 
+		'create/super_glue'
+	])
+
 
 	schemas.register(`${ID}:vs_entities`, ObjectNode({
 		handler: StringNode({enum: ["valkyrienskies:default", "valkyrienskies:shipyard"]})

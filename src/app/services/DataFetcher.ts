@@ -69,7 +69,7 @@ async function _fetchRegistries(version: Version, target: CollectionRegistry) {
 			target.register(id, data[id].map((e: string) => 'minecraft:' + e))
 			//console.log(id+" "+data[id].map((e: string) => 'minecraft:' + e));
 		}
-		target.register('cosmic_data', ['cosmos:marslands', 'cosmos:solar_system']);
+		//target.register('cosmic_data', ['cosmos:marslands', 'cosmos:solar_system']);
 		//target.register('cosmos', '')
 		//data.set("cosmos:", new Map<string, unknown>().set("e", ""))
 
@@ -174,6 +174,9 @@ export async function fetchPreset(versionId: VersionId, registry: string, id: st
 		}
 		else if (registry == "vs_mass") {
 			url = `https://raw.githubusercontent.com/ValkyrienSkies/Valkyrien-Skies-2/refs/heads/1.20.1/2.3/common/src/main/resources/data/valkyrienskies/vs_mass/${id}.json`
+		}
+		else if (registry == "vs_entities") {
+			url = `https://raw.githubusercontent.com/ValkyrienSkies/Valkyrien-Skies-2/refs/heads/1.20.1/2.3/common/src/main/resources/data/${id.split("/")[0]}/vs_entities/${id.split("/")[1]}.json`
 		}
 		else {
 			const type = ['atlases', 'blockstates', 'items', 'models', 'font'].includes(registry) ? 'assets' : 'data'
