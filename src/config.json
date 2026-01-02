@@ -477,14 +477,24 @@
       "url": "valkyrienskies/vs-mass",
       "path": "vs_mass",
       "schema": "valkyrienskies:vs_mass",
-      "minVersion": "1.20"
+      "minVersion": "1.20",
+      "wiki": "https://wiki.valkyrienskies.org/wiki/Datapack_System"
     },
     {
       "id": "vs_entities",
       "url": "valkyrienskies/vs-entities",
       "path": "vs_entities",
       "schema": "valkyrienskies:vs_entities",
-      "minVersion": "1.20"
+      "minVersion": "1.20",
+      "wiki": "https://wiki.valkyrienskies.org/wiki/Datapack_System"
+    },
+    {
+      "id": "vs_dimension_parameters",
+      "url": "valkyrienskies/vs-dimension-parameters",
+      "path": "vs_dimension_parameters",
+      "schema": "valkyrienskies:vs_dimension_parameters",
+      "minVersion": "1.20",
+      "wiki": "https://wiki.valkyrienskies.org/wiki/Datapack_System"
     },
     {
       "id": "planets",

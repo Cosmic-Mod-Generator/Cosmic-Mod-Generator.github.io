@@ -173,10 +173,20 @@ export async function fetchPreset(versionId: VersionId, registry: string, id: st
 			url = `https://raw.githubusercontent.com/terrarium-earth/Ad-Astra/refs/heads/1.20.1/common/src/main/generated/resources/data/ad_astra/planets/${id}.json`
 		}
 		else if (registry == "vs_mass") {
-			url = `https://raw.githubusercontent.com/ValkyrienSkies/Valkyrien-Skies-2/refs/heads/1.20.1/2.3/common/src/main/resources/data/valkyrienskies/vs_mass/${id}.json`
+			url = `https://raw.githubusercontent.com/ValkyrienSkies/Valkyrien-Skies-2/refs/heads/1.20.1/main/common/src/main/resources/data/valkyrienskies/vs_mass/${id}.json`
 		}
 		else if (registry == "vs_entities") {
-			url = `https://raw.githubusercontent.com/ValkyrienSkies/Valkyrien-Skies-2/refs/heads/1.20.1/2.3/common/src/main/resources/data/${id.split("/")[0]}/vs_entities/${id.split("/")[1]}.json`
+			var url_end;
+			if (id.split(":").length > 1) {
+				url_end = `${id.split(":")[0]}/vs_entities/${id.split(":")[1]}`
+			} else {
+				// no namespace, so we use 'minecraft'
+				url_end = `minecraft/vs_entities/${id}`
+			}
+			url = `https://raw.githubusercontent.com/ValkyrienSkies/Valkyrien-Skies-2/refs/heads/1.20.1/main/common/src/main/resources/data/${url_end}.json`
+		}
+		else if (registry == "vs_dimension_parameters") {
+			url = `https://raw.githubusercontent.com/ValkyrienSkies/Valkyrien-Skies-2/refs/heads/1.20.1/main/common/src/main/resources/data/valkyrienskies/vs_dimension_parameters/${id}.json`
 		}
 		else {
 			const type = ['atlases', 'blockstates', 'items', 'models', 'font'].includes(registry) ? 'assets' : 'data'

@@ -21,6 +21,9 @@ export function initAdAstra(schemas: SchemaRegistry, collections: CollectionRegi
 				temperature: NumberNode({integer: true}),
 				tier: NumberNode({integer: true, min: 1}),
 				additional_launch_dimensions: Opt(ListNode(StringNode()))
+			},
+			{
+				context: `${ID}.planets`
 			}
 		)	
 	)
