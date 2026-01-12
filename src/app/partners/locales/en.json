@@ -46,6 +46,8 @@
   "valkyrienskies.list_node.entry.friction.help": "Default is 0.5, ice is 0.05",
   "valkyrienskies.list_node.entry.elasticity": "Elasticity",
   "valkyrienskies.list_node.entry.elasticity.help": "The 'Bounciness' of the block. Default is 0.3, slime is 1.0",
+  "valkyrienskies.list_node.entry.no_collision": "No collision",
+  "valkyrienskies.list_node.entry.no_collision.help": "If set to true, forces the block to not collide with/on a VS ship. Used for things like leaves",
   "valkyrienskies.list_node.entry.priority": "Priority",
   "valkyrienskies.list_node.entry.priority.help": "Default is 100, you may need higher to override default values or other packs",  
   "generator.vs_dimension_parameters": "VS Dimension Parameters",
