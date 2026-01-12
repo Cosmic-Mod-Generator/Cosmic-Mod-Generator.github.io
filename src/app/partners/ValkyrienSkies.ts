@@ -121,6 +121,7 @@ export function initValkyrienSkies(schemas: SchemaRegistry, collections: Collect
 				mass: Opt(NumberNode({min: 0.0})),
 				friction: Opt(NumberNode({min: 0.0})),
 				elasticity: Opt(NumberNode({min: 0.0})),
+				// Does nothing if false
 				no_collision: Opt(BooleanNode()),
 				priority: Opt(NumberNode({integer: true}))
 			}),
