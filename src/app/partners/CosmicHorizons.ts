@@ -1,6 +1,6 @@
 import type { CollectionRegistry, SchemaRegistry } from '@mcschema/core'
 import { BooleanNode, MapNode, Mod, NumberNode, ObjectNode, Opt, Reference as RawReference, StringNode as RawStringNode } from '@mcschema/core'
-import { conditionalNode } from './index.js'
+import { ConditionalNode } from './index.js'
 
 const ID = 'cosmos'
 
@@ -22,7 +22,7 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 		skybox_data: Opt(Reference(`${ID}:skybox_data`)),
 		
 		// Planet exclusive stuff
-		fog_data: conditionalNode(
+		fog_data: ConditionalNode(
 			Opt(
 				ObjectNode({
 					color: Reference(`${ID}:rgb`),
@@ -34,11 +34,11 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 				})
 			),
 		['dimensional_data', 'dimension_type'], 'planet'),
-		sky_data: conditionalNode(MapNode(StringNode(), Reference(`${ID}:sky_data`)), ['dimensional_data', 'dimension_type'], 'planet'),
+		sky_data: ConditionalNode(MapNode(StringNode(), Reference(`${ID}:sky_data`)), ['dimensional_data', 'dimension_type'], 'planet'),
 
 		// Space exclusive stuff
-		planet_data: conditionalNode(MapNode(StringNode(), Reference(`${ID}:planet_data`)), ['dimensional_data', 'dimension_type'], 'space'),
-		gui_data: conditionalNode(Opt(MapNode(StringNode(), Reference(`${ID}:guicategory`))), ['dimensional_data', 'dimension_type'], 'space'),
+		planet_data: ConditionalNode(MapNode(StringNode(), Reference(`${ID}:planet_data`)), ['dimensional_data', 'dimension_type'], 'space'),
+		gui_data: ConditionalNode(Opt(MapNode(StringNode(), Reference(`${ID}:guicategory`))), ['dimensional_data', 'dimension_type'], 'space'),
 
 	}, { context: `${ID}.cosmic_data` }))
 
@@ -95,17 +95,17 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 
 		glowing: BooleanNode(),
 
-		texture_id: conditionalNode(StringNode(), ['glowing'], false),
+		texture_id: ConditionalNode(StringNode(), ['glowing'], false),
 
-		core_color: conditionalNode(Reference(`${ID}:rgb`), ['glowing'], true),
+		core_color: ConditionalNode(Reference(`${ID}:rgb`), ['glowing'], true),
 
-		bloom_color: conditionalNode(Reference(`${ID}:rgb`), ['glowing'], true),
+		bloom_color: ConditionalNode(Reference(`${ID}:rgb`), ['glowing'], true),
 
 		collision: BooleanNode(),
 
-		travel_to: Opt(conditionalNode(Reference(`cosmos:dimension`), ['glowing'], false)),
+		travel_to: Opt(ConditionalNode(Reference(`cosmos:dimension`), ['glowing'], false)),
 
-		opaque: Opt(conditionalNode(BooleanNode(), ['glowing'], false)),
+		opaque: Opt(ConditionalNode(BooleanNode(), ['glowing'], false)),
 
 		inverse_texture_id: Mod(Opt(StringNode()), {
 			enabled: (path) => {
@@ -149,7 +149,7 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 
 		ringed: BooleanNode(),
 
-		ring_data: conditionalNode(
+		ring_data: ConditionalNode(
 			MapNode(StringNode(), ObjectNode({
 				texture_id: StringNode(),
 				radius: NumberNode(),
@@ -160,19 +160,19 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 
 				additive: Opt(BooleanNode()),
 
-				custom_color: conditionalNode(Reference(`${ID}:rgba`), ['additive'], true),
+				custom_color: ConditionalNode(Reference(`${ID}:rgba`), ['additive'], true),
 
-				multiple: conditionalNode(NumberNode({integer: true, min: 1}), ['additive'], true),
+				multiple: ConditionalNode(NumberNode({integer: true, min: 1}), ['additive'], true),
 			})
 			), 
 		['ringed'], true),
 
-		model_type: conditionalNode(
+		model_type: ConditionalNode(
 			Opt(StringNode({enum: ['black_hole']})),
 			['glowing'], false
 		),
 
-		model_data: conditionalNode(
+		model_data: ConditionalNode(
 			ObjectNode({
 				color: Reference(`${ID}:rgb`),
 				intensity: NumberNode({integer: true, min: 0}),
@@ -214,7 +214,7 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 
 		vanilla_sunlight: Opt(BooleanNode()),
 
-		sunlight_color: conditionalNode(
+		sunlight_color: ConditionalNode(
 			Reference(`${ID}:rgba`),
 		['vanilla_sunlight'], false)
 
@@ -225,23 +225,23 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 		
 		// ----- Planet sky objects ----- //
 
-		phased: conditionalNode(BooleanNode(), ['type'], 'object'),
+		phased: ConditionalNode(BooleanNode(), ['type'], 'object'),
 
 		// The objects rotation
-		object_yaw: conditionalNode(NumberNode({min: -360, max: 360}), ['type'], 'object'),
-		object_pitch: conditionalNode(NumberNode({min: -360, max: 360}), ['type'], 'object'),
-		object_roll: conditionalNode(NumberNode({min: -360, max: 360}), ['type'], 'object'),
+		object_yaw: ConditionalNode(NumberNode({min: -360, max: 360}), ['type'], 'object'),
+		object_pitch: ConditionalNode(NumberNode({min: -360, max: 360}), ['type'], 'object'),
+		object_roll: ConditionalNode(NumberNode({min: -360, max: 360}), ['type'], 'object'),
 
 		// Its intial rotation around the planet OR the rings rotation
 		yaw: NumberNode({min: -360, max: 360}),
 		pitch: NumberNode({min: -360, max: 360}),
 		roll: NumberNode({min: -360, max: 360}),
 
-		yaw_speed: conditionalNode(NumberNode(), ['type'], 'object'),
-		pitch_speed: conditionalNode(NumberNode(), ['type'], 'object'),
-		roll_speed: conditionalNode(NumberNode(), ['type'], 'object'),
+		yaw_speed: ConditionalNode(NumberNode(), ['type'], 'object'),
+		pitch_speed: ConditionalNode(NumberNode(), ['type'], 'object'),
+		roll_speed: ConditionalNode(NumberNode(), ['type'], 'object'),
 
-		scale: conditionalNode(NumberNode({integer: false}), ['type'], 'object'),
+		scale: ConditionalNode(NumberNode({integer: false}), ['type'], 'object'),
 		
 		texture_id: Mod(Opt(StringNode()), {
 			enabled: (path) => {
@@ -296,11 +296,11 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 		),
 
 		// ----- Ring sky objects ----- //
-		additive: conditionalNode(
+		additive: ConditionalNode(
 			BooleanNode(), 
 			['type'], 'ring'
 		),
-		scale_radius: conditionalNode(
+		scale_radius: ConditionalNode(
 			NumberNode({integer: false, min: 0.01}), 
 			['type'], 'ring'
 		),
@@ -375,7 +375,7 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 
 		ringed: BooleanNode(),
 
-		ring_data: conditionalNode(MapNode(StringNode(), ObjectNode({
+		ring_data: ConditionalNode(MapNode(StringNode(), ObjectNode({
 			texture_id: StringNode(),
 			scale_radius: NumberNode({integer: false, min: 0.01})
 		})), ['ringed'], true),
