@@ -1,10 +1,10 @@
 import type { CollectionRegistry, SchemaRegistry } from '@mcschema/core'
-import { BooleanNode, ListNode, NumberNode, ObjectNode, Opt, StringNode as RawStringNode } from '@mcschema/core'
+import { BooleanNode, ListNode, NumberNode, ObjectNode, Opt, Reference as RawReference, StringNode } from '@mcschema/core'
 
 const ID = 'ad_astra'
 
 export function initAdAstra(schemas: SchemaRegistry, collections: CollectionRegistry) {
-	const StringNode = RawStringNode.bind(undefined, collections)
+	const Reference = RawReference.bind(undefined, schemas)
 
 	collections.register('planets', ['earth', 'earth_orbit', 'glacio', 'glacio_orbit', 'mars', 'mars_orbit', 'mercury', 'mercury_orbit', 'moon', 'moon_orbit', 'venus', 'venus_orbit'])
 
@@ -12,7 +12,7 @@ export function initAdAstra(schemas: SchemaRegistry, collections: CollectionRegi
 	schemas.register(`${ID}:planets`, 
 		ObjectNode(
 			{
-				dimension: StringNode(),
+				dimension: Reference(`cosmos:dimension`),
 				gravity: NumberNode(),
 				orbit: Opt(StringNode()),
 				oxygen: BooleanNode(),

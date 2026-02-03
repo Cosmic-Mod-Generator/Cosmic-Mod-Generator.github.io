@@ -1,5 +1,6 @@
-import type { CollectionRegistry, INode, SchemaRegistry } from '@mcschema/core'
+import type { CollectionRegistry, SchemaRegistry } from '@mcschema/core'
 import { BooleanNode, MapNode, Mod, NumberNode, ObjectNode, Opt, Reference as RawReference, StringNode as RawStringNode } from '@mcschema/core'
+import { conditionalNode } from './index.js'
 
 const ID = 'cosmos'
 
@@ -10,17 +11,9 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 	// Register presets, will search for them at /data/{id}.json
 	collections.register('cosmic_data', ['alpha_system', 'b_1400_centauri', 'earth_moon', 'europa_lands', 'venuslands', 'gaia_bh_1', 'glacio_lands', 'j_1407blands', 'j_1900', 'jupiterlands', 'marslands', 'mercury_wasteland', 'neptune_lands', 'overworld', 'plutowastelands', 'saturn_lands', 'solar_system', 'uranus_lands'])
 	
-	// Don't ask about the typescript nonesense, all I know is that it works
-	function conditionalNode<T extends INode<any>>(node: T, conditionPath: string[], conditionValue: any): T {
-		return Mod(node, {
-			enabled: path => conditionPath.reduce((p, segment) => p.push(segment), path).get() === conditionValue
-			
-		}) as T;
-	}
-
 	schemas.register(`${ID}:cosmic_data`, ObjectNode({
 		// Switch between planet and space dimensions
-		attached_dimention_id: Reference(`${ID}:dimension`),
+		attached_dimention_id: Reference(`cosmos:dimension`),
 
 		// Dimensional data
 		dimensional_data : Reference(`${ID}:dim_data`),
@@ -110,7 +103,7 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 
 		collision: BooleanNode(),
 
-		travel_to: Opt(conditionalNode(Reference(`${ID}:dimension`), ['glowing'], false)),
+		travel_to: Opt(conditionalNode(Reference(`cosmos:dimension`), ['glowing'], false)),
 
 		opaque: Opt(conditionalNode(BooleanNode(), ['glowing'], false)),
 
@@ -194,7 +187,7 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 	schemas.register(`${ID}:atmo_data`, ObjectNode({
 
 		atmosphere_y: NumberNode({integer: true}),
-		travel_to: Opt(Reference(`${ID}:dimension`)),
+		travel_to: Opt(Reference(`cosmos:dimension`)),
 
 		origin_x: NumberNode({integer: true}),
 		origin_y: NumberNode({integer: true}),
@@ -334,13 +327,13 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 	}))
 
 	schemas.register(`${ID}:guicategory`, ObjectNode({
-		travel_dimension: Reference(`${ID}:dimension`), //should be same as attached_dimension_id
+		travel_dimension: Reference(`cosmos:dimension`), //should be same as attached_dimension_id
 
 		origin_x: NumberNode({integer: true}),
 		origin_y: NumberNode({integer: true}),
 		origin_z: NumberNode({integer: true}),
 
-		unlocking_dimension: Reference(`${ID}:dimension`),
+		unlocking_dimension: Reference(`cosmos:dimension`),
 
 		background: StringNode(),
 
@@ -369,7 +362,7 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 		travel_y: NumberNode({integer: true}),
 		travel_z: NumberNode({integer: true}),
 
-		unlocking_dimension: Opt(Reference(`${ID}:dimension`)),
+		unlocking_dimension: Opt(Reference(`cosmos:dimension`)),
 
 		name: Opt(Reference(`${ID}:fancy_text`)),
 		atmosphere: Opt(Reference(`${ID}:fancy_text`)),
@@ -393,6 +386,4 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 		text: StringNode(),
 		color: StringNode({enum: ["red", "dark_red", "orange", "yellow", "green", "lime", "cyan", "light_blue", "blue", "magenta", "purple", "pink", "brown", "gray", "light_gray", "black", "white"]})
 	}))
-
-	schemas.register(`${ID}:dimension`, StringNode()) //For later
 }
