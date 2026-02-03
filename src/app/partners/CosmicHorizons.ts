@@ -107,18 +107,16 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 
 		opaque: Opt(ConditionalNode(BooleanNode(), ['glowing'], false)),
 
-		inverse_texture_id: Mod(Opt(StringNode()), {
-			enabled: (path) => {
+		inverse_texture_id: ConditionalNode(Opt(StringNode()), (path) => {
 				return (path.push('glowing').get() == false) && (path.push('opaque').get() == true)
 			}
-		}),
-		atmosphere_color: Mod(Opt(Reference(`${ID}:rgba`)), {
-			enabled: (path) => {
+		),
+		atmosphere_color: ConditionalNode(Opt(Reference(`${ID}:rgba`)), (path) => {
 				return (path.push('glowing').get() == false) && (path.push('opaque').get() == true)
 			}
-		}),
+		),
 
-		cloud_data: Mod(
+		cloud_data: ConditionalNode(
 			Opt(
 				ObjectNode({
 					animation_folder: StringNode(),
@@ -128,11 +126,10 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 					cloud_color: Reference(`${ID}:rgba`),
 
 				})
-			), {
-			enabled: (path) => {
+			), (path) => {
 				return (path.push('glowing').get() == false) && (path.push('opaque').get() == true)
 			}
-		}),
+		),
 
 		layer: 
 			Mod(NumberNode({
@@ -243,23 +240,19 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 
 		scale: ConditionalNode(NumberNode({integer: false}), ['type'], 'object'),
 		
-		texture_id: Mod(Opt(StringNode()), {
-			enabled: (path) => {
+		texture_id: ConditionalNode(Opt(StringNode()), (path) => {
 				return (path.push('type').get() == 'object') || (path.push('type').get() == 'ring')
 			}
-		}), 
+		), 
 
-		// More complicated than conditionalNode can do
-		core_color: Mod(Reference(`${ID}:rgb`), {
-			enabled: (path) => {
+		core_color: ConditionalNode(Reference(`${ID}:rgb`), (path) => {
 				return (path.push('type').get() == 'object') && (path.push('texture_id').get() == undefined)
 			}
-		}),
-		bloom_color: Mod(Reference(`${ID}:rgb`), {
-			enabled: (path) => {
+		),
+		bloom_color: ConditionalNode(Reference(`${ID}:rgb`), (path) => {
 				return (path.push('type').get() == 'object') && (path.push('texture_id').get() == undefined)
 			}
-		}),
+		),
 
 		layer: Mod(Opt(NumberNode({
 			integer: true,
@@ -273,13 +266,12 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 		}), 
 		
 
-		atmosphere_color: Mod(Opt(Reference(`${ID}:rgba`)), {
-			enabled: (path) => {
+		atmosphere_color: ConditionalNode(Opt(Reference(`${ID}:rgba`)), (path) => {
 				return (path.push('type').get() == 'object') && (path.push('texture_id').get() != undefined)
 			}
-		}),
+		),
 
-		cloud_data: Mod(
+		cloud_data: ConditionalNode(
 			Opt(
 				ObjectNode({
 					animation_folder: StringNode(),
@@ -288,11 +280,10 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 
 					cloud_color: Reference(`${ID}:rgba`),
 				})
-			), {
-				enabled: (path) => {
-					return (path.push('type').get() == 'object') && (path.push('texture_id').get() != undefined)
-				}
+			), (path) => {
+				return (path.push('type').get() == 'object') && (path.push('texture_id').get() != undefined)
 			}
+			
 		),
 
 		// ----- Ring sky objects ----- //
