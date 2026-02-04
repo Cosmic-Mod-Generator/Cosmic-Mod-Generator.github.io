@@ -1,5 +1,6 @@
-import type { CollectionRegistry, INode, SchemaRegistry } from '@mcschema/core'
+import type { CollectionRegistry, SchemaRegistry } from '@mcschema/core'
 import { BooleanNode, ChoiceNode, ListNode, Mod, NumberNode, ObjectNode, Opt, Reference as RawReference, StringNode as RawStringNode } from '@mcschema/core'
+import { ConditionalNode } from './index.js'
 
 const ID = 'valkyrienskies'
 
@@ -68,12 +69,6 @@ export function initValkyrienSkies(schemas: SchemaRegistry, collections: Collect
 		'redstone/blocks',
 	])
 
-	function conditionalNode<T extends INode<any>>(node: T, conditionPath: string[], conditionValue: any): T {
-			return Mod(node, {
-				enabled: path => conditionPath.reduce((p, segment) => p.push(segment), path).get() === conditionValue,
-			}) as T;
-		}
-
 	schemas.register(`${ID}:vs_mass`, 
 		Mod(
 			ChoiceNode(
@@ -105,14 +100,14 @@ export function initValkyrienSkies(schemas: SchemaRegistry, collections: Collect
 			ObjectNode({
 				
 				// They can provide a 'block': 'namespace:whatever'
-				block: conditionalNode(StringNode({
+				block: ConditionalNode(StringNode({
 					validator: 'resource',
 					params: { pool: 'block' },
 				}),
 				['tag'], undefined),
 
 				// OR a 'tag':'namespace:a_tag'
-				tag: conditionalNode(StringNode({
+				tag: ConditionalNode(StringNode({
 					validator: 'resource',
 					params: {pool: '$tag/block'}
 				}), ['block'], undefined),
