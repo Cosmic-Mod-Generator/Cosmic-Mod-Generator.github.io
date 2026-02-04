@@ -1,6 +1,6 @@
 import { Mod, ModelPath, StringNode, type CollectionRegistry, type INode, type SchemaRegistry } from '@mcschema/core'
 import type { VersionId } from '../services/Schemas.js'
-import { initAdAstra } from './AdAstra.js'
+import { AdAstra } from './AdAstra.js'
 import { initCosmicHorizons } from './CosmicHorizons.js'
 import { initValkyrienSkies } from './ValkyrienSkies.js'
 
@@ -11,7 +11,9 @@ export function initPartners(schemas: SchemaRegistry, collections: CollectionReg
 
 	initCosmicHorizons(schemas, collections)
 	initValkyrienSkies(schemas, collections)
-	initAdAstra(schemas, collections)
+	//initAdAstra(schemas, collections)
+
+	new AdAstra(schemas, collections).init()
 }
 
 
