@@ -2,7 +2,7 @@ import { Mod, ModelPath, StringNode, type CollectionRegistry, type INode, type S
 import type { VersionId } from '../services/Schemas.js'
 import { AdAstra } from './AdAstra.js'
 import { initCosmicHorizons } from './CosmicHorizons.js'
-import { initValkyrienSkies } from './ValkyrienSkies.js'
+import { ValkyrienSkies } from './ValkyrienSkies.js'
 
 export * from './CosmicHorizons.js'
 
@@ -10,9 +10,10 @@ export function initPartners(schemas: SchemaRegistry, collections: CollectionReg
 	schemas.register(`cosmos:dimension`, StringNode(collections, {validator: "resource", params: {pool: "$dimension", allowTag: false, allowUnknown: true}}))
 
 	initCosmicHorizons(schemas, collections)
-	initValkyrienSkies(schemas, collections)
+	//initValkyrienSkies(schemas, collections)
 	//initAdAstra(schemas, collections)
-
+	
+	new ValkyrienSkies(schemas, collections).init()
 	new AdAstra(schemas, collections).init()
 }
 
