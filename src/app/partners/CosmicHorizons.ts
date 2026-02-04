@@ -7,6 +7,7 @@ const ID = 'cosmos'
 export function initCosmicHorizons(schemas: SchemaRegistry, collections: CollectionRegistry) {
 	const Reference = RawReference.bind(undefined, schemas)
 	const StringNode = RawStringNode.bind(undefined, collections)
+	const IntNode = NumberNode.bind(undefined, {integer: true})
 
 	// Register presets, will search for them at /data/{id}.json
 	collections.register('cosmic_data', ['alpha_system', 'b_1400_centauri', 'earth_moon', 'europa_lands', 'venuslands', 'gaia_bh_1', 'glacio_lands', 'j_1407blands', 'j_1900', 'jupiterlands', 'marslands', 'mercury_wasteland', 'neptune_lands', 'overworld', 'plutowastelands', 'saturn_lands', 'solar_system', 'uranus_lands'])
@@ -82,9 +83,9 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 
 		object_name: Opt(StringNode()),
 
-		x: NumberNode({integer:true}),
-		y: NumberNode({integer:true}),
-		z: NumberNode({integer:true}),
+		x: IntNode(),
+		y: IntNode(),
+		z: IntNode(),
 
 		yaw: NumberNode(),
 		pitch: NumberNode(),
@@ -183,16 +184,16 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 
 	schemas.register(`${ID}:atmo_data`, ObjectNode({
 
-		atmosphere_y: NumberNode({integer: true}),
+		atmosphere_y: IntNode(),
 		travel_to: Opt(Reference(`cosmos:dimension`)),
 
-		origin_x: NumberNode({integer: true}),
-		origin_y: NumberNode({integer: true}),
-		origin_z: NumberNode({integer: true}),
+		origin_x: IntNode(),
+		origin_y: IntNode(),
+		origin_z: IntNode(),
 
 		overlay_texture_id: StringNode(),
 		shipbit_y: NumberNode({integer: true, min: 0, max: 128}),
-		ship_min_y: NumberNode({integer: true})
+		ship_min_y: IntNode()
 
 	}, { context: `${ID}.atmo_data` }))
 
@@ -320,9 +321,9 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 	schemas.register(`${ID}:guicategory`, ObjectNode({
 		travel_dimension: Reference(`cosmos:dimension`), //should be same as attached_dimension_id
 
-		origin_x: NumberNode({integer: true}),
-		origin_y: NumberNode({integer: true}),
-		origin_z: NumberNode({integer: true}),
+		origin_x: IntNode(),
+		origin_y: IntNode(),
+		origin_z: IntNode(),
 
 		unlocking_dimension: Reference(`cosmos:dimension`),
 
@@ -330,7 +331,7 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 
 		title: StringNode(),
 
-		order: NumberNode({integer: true}),
+		order: IntNode(),
 
 		object_data: Opt(MapNode(StringNode(), Reference(`${ID}:guiplanet`))),
 	}))
@@ -341,17 +342,17 @@ export function initCosmicHorizons(schemas: SchemaRegistry, collections: Collect
 		scale: NumberNode({min:0, max: 50}),
 		ponder_scale: NumberNode({min:1, max: 100}),
 
-		yaw: NumberNode({integer:true}),
-		pitch: NumberNode({integer:true}),
-		roll: NumberNode({integer:true}),
+		yaw: IntNode(),
+		pitch: IntNode(),
+		roll: IntNode(),
 
 		yaw_speed: NumberNode(),
 		pitch_speed: NumberNode(),
 		roll_speed: NumberNode(),
 
-		travel_x: NumberNode({integer: true}),
-		travel_y: NumberNode({integer: true}),
-		travel_z: NumberNode({integer: true}),
+		travel_x: IntNode(),
+		travel_y: IntNode(),
+		travel_z: IntNode(),
 
 		unlocking_dimension: Opt(Reference(`cosmos:dimension`)),
 
