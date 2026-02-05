@@ -182,7 +182,23 @@ export class ValkyrienSkies extends AbstractPartner {
 		return "valkyrienskies";
 	}
 
-	mapPresetURL(preset: string): string {
-		throw new Error("Method not implemented.")
+	mapPresetURL(registry: string, preset: string): string {
+		if (registry == "vs_mass") {
+			return `https://raw.githubusercontent.com/ValkyrienSkies/Valkyrien-Skies-2/refs/heads/1.20.1/main/common/src/main/resources/data/valkyrienskies/vs_mass/${preset}.json`;
+		}
+		else if (registry == "vs_entities") {
+			var url_end;
+			if (preset.split(":").length > 1) {
+				url_end = `${preset.split(":")[0]}/vs_entities/${preset.split(":")[1]}`;
+			} else {
+				// no namespace, so we use 'minecraft'
+				url_end = `minecraft/vs_entities/${preset}`;
+			}
+			return `https://raw.githubusercontent.com/ValkyrienSkies/Valkyrien-Skies-2/refs/heads/1.20.1/main/common/src/main/resources/data/${url_end}.json`;
+		}
+		else if (registry == "vs_dimension_parameters") {
+			return `https://raw.githubusercontent.com/ValkyrienSkies/Valkyrien-Skies-2/refs/heads/1.20.1/main/common/src/main/resources/data/valkyrienskies/vs_dimension_parameters/${preset}.json`;
+		}
+		throw new Error("IllegalStateException: registry not a VS registry");
 	}
 }

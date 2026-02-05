@@ -1,5 +1,6 @@
 import type { CollectionRegistry } from '@mcschema/core'
 import config from '../Config.js'
+import { getRegisteredPartner } from '../partners/index.js'
 import { Store } from '../Store.js'
 import { message } from '../Utils.js'
 import type { BlockStateRegistry, VersionId } from './Schemas.js'
@@ -158,40 +159,22 @@ export async function fetchItemComponents(versionId: VersionId) {
 	return result
 }
 
-export async function fetchPreset(versionId: VersionId, registry: string, id: string) {
+export async function fetchPreset(versionId: VersionId, registry: string, id: string, namespace: string | undefined = undefined) {
+
 	console.debug(`[fetchPreset] ${versionId} ${registry} ${id}`)
-	const version = config.versions.find(v => v.id === versionId)!
+
 	try {
+		const version = config.versions.find(v => v.id === versionId)
+		
 		let url
-		console.debug("E "+registry);
-		if (id.startsWith('immersive_weathering:')) {
-			url = `https://raw.githubusercontent.com/AstralOrdana/Immersive-Weathering/main/src/main/resources/data/immersive_weathering/block_growths/${id.slice(21)}.json`
-		} else if (registry == "cosmic_data") {
-			fetchAllPresets(versionId, 'loot_table'),
-			url = `/data/${id}.json`
-		} else if (registry == "planets") {
-			url = `https://raw.githubusercontent.com/terrarium-earth/Ad-Astra/refs/heads/1.20.1/common/src/main/generated/resources/data/ad_astra/planets/${id}.json`
-		}
-		else if (registry == "vs_mass") {
-			url = `https://raw.githubusercontent.com/ValkyrienSkies/Valkyrien-Skies-2/refs/heads/1.20.1/main/common/src/main/resources/data/valkyrienskies/vs_mass/${id}.json`
-		}
-		else if (registry == "vs_entities") {
-			var url_end;
-			if (id.split(":").length > 1) {
-				url_end = `${id.split(":")[0]}/vs_entities/${id.split(":")[1]}`
-			} else {
-				// no namespace, so we use 'minecraft'
-				url_end = `minecraft/vs_entities/${id}`
-			}
-			url = `https://raw.githubusercontent.com/ValkyrienSkies/Valkyrien-Skies-2/refs/heads/1.20.1/main/common/src/main/resources/data/${url_end}.json`
-		}
-		else if (registry == "vs_dimension_parameters") {
-			url = `https://raw.githubusercontent.com/ValkyrienSkies/Valkyrien-Skies-2/refs/heads/1.20.1/main/common/src/main/resources/data/valkyrienskies/vs_dimension_parameters/${id}.json`
-		}
-		else {
+		if (namespace != undefined && namespace != "minecraft") {
+			var preset = getRegisteredPartner(namespace);
+			url = preset?.mapPresetURL(registry, id);
+		} else {
 			const type = ['atlases', 'blockstates', 'items', 'models', 'font'].includes(registry) ? 'assets' : 'data'
 			url = `${mcmeta(version, type)}/${type}/minecraft/${registry}/${id}.json`
 		}
+		console.log(url);
 		const res = await fetch(url)
 		return await res.json()
 	} catch (e) {

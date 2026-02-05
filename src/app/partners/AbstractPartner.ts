@@ -15,9 +15,13 @@ export abstract class AbstractPartner {
 		this.StringNode = RawStringNode.bind(undefined, collections)
 	}
 
-	init(): void {
+	/**
+	 * Returns `this` for chaining
+	 */
+	init(): AbstractPartner {
 		this.initSchemas(this.schemas);
 		this.initCollections(this.collections);
+		return this;
 	}
 
 	/**
@@ -43,9 +47,10 @@ export abstract class AbstractPartner {
 	 * Should return the full URL to fetch a .json file from for a preset.
 	 * 
 	 * For example, you may return something like ``https://raw.githubusercontent.com/User/Repo/main/resources/data/my_registry/${id}.json``
+	 * @param registry the registry (schema) this preset is from. Useful if your partner defines multiple schemas
 	 * @param preset the preset id to fetch, a value from the `string[]` you would have registered in initCollections
 	 */
-	abstract mapPresetURL(preset: string): string;
+	abstract mapPresetURL(registry: string, preset: string): string;
 
 	/**
 	 * A wrapper around {@link RawReference Reference} that automatically uses this partners schema and id.

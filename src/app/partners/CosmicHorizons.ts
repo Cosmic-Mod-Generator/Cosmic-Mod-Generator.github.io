@@ -103,7 +103,7 @@ export class CosmicHorizons extends AbstractPartner {
 		
 				collision: BooleanNode(),
 		
-				travel_to: Opt(ConditionalNode(Reference(`cosmos:dimension`), ['glowing'], false)),
+				travel_to: Opt(ConditionalNode(Reference(`dimension`), ['glowing'], false)),
 		
 				opaque: Opt(ConditionalNode(BooleanNode(), ['glowing'], false)),
 		
@@ -184,7 +184,7 @@ export class CosmicHorizons extends AbstractPartner {
 			schemas.register(`${ID}:atmo_data`, ObjectNode({
 		
 				atmosphere_y: IntNode(),
-				travel_to: Opt(Reference(`cosmos:dimension`)),
+				travel_to: Opt(Reference(`dimension`)),
 		
 				origin_x: IntNode(),
 				origin_y: IntNode(),
@@ -318,13 +318,13 @@ export class CosmicHorizons extends AbstractPartner {
 			}))
 		
 			schemas.register(`${ID}:guicategory`, ObjectNode({
-				travel_dimension: Reference(`cosmos:dimension`), //should be same as attached_dimension_id
+				travel_dimension: Reference(`dimension`), //should be same as attached_dimension_id
 		
 				origin_x: IntNode(),
 				origin_y: IntNode(),
 				origin_z: IntNode(),
 		
-				unlocking_dimension: Reference(`cosmos:dimension`),
+				unlocking_dimension: Reference(`dimension`),
 		
 				background: StringNode(),
 		
@@ -353,7 +353,7 @@ export class CosmicHorizons extends AbstractPartner {
 				travel_y: IntNode(),
 				travel_z: IntNode(),
 		
-				unlocking_dimension: Opt(Reference(`cosmos:dimension`)),
+				unlocking_dimension: Opt(Reference(`dimension`)),
 		
 				name: Opt(Reference(`fancy_text`)),
 				atmosphere: Opt(Reference(`fancy_text`)),
@@ -387,7 +387,7 @@ export class CosmicHorizons extends AbstractPartner {
 		return "cosmos";
 	}
 
-	mapPresetURL(preset: string): string {
-		throw new Error("Method not implemented.")
+	mapPresetURL(registry: string, preset: string): string {
+		return `/data/${preset}.json`
 	}
 }

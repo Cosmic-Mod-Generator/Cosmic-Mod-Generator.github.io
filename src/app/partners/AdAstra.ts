@@ -38,7 +38,7 @@ export class AdAstra extends AbstractPartner {
 		return "ad_astra";
 	}
 
-	mapPresetURL(preset: string): string {
-		throw new Error("Method not implemented.")
+	mapPresetURL(registry: string, preset: string): string {
+		return `https://raw.githubusercontent.com/terrarium-earth/Ad-Astra/refs/heads/1.20.1/common/src/main/generated/resources/data/ad_astra/planets/${preset}.json`
 	}
 }

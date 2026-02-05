@@ -1,21 +1,27 @@
 import { Mod, ModelPath, StringNode, type CollectionRegistry, type INode, type SchemaRegistry } from '@mcschema/core'
 import type { VersionId } from '../services/Schemas.js'
+import { AbstractPartner } from './AbstractPartner.js'
 import { AdAstra } from './AdAstra.js'
 import { CosmicHorizons } from './CosmicHorizons.js'
 import { ValkyrienSkies } from './ValkyrienSkies.js'
 
+var partners: Map<string, AbstractPartner> = new Map()
+
 export function initPartners(schemas: SchemaRegistry, collections: CollectionRegistry, _version: VersionId) {
 	schemas.register(`cosmos:dimension`, StringNode(collections, {validator: "resource", params: {pool: "$dimension", allowTag: false, allowUnknown: true}}))
-
-	//initCosmicHorizons(schemas, collections)
-	//initValkyrienSkies(schemas, collections)
-	//initAdAstra(schemas, collections)
 	
-	new CosmicHorizons(schemas, collections).init()
-	new ValkyrienSkies(schemas, collections).init()
-	new AdAstra(schemas, collections).init()
+	var ch = new CosmicHorizons(schemas, collections).init();
+	var vs = new ValkyrienSkies(schemas, collections).init();
+	var ad = new AdAstra(schemas, collections).init();
+	
+	partners.set(ch.getId(), ch);
+	partners.set(vs.getId(), vs);
+	partners.set(ad.getId(), ad);
 }
 
+export function getRegisteredPartner(id: string): AbstractPartner  | undefined {
+	return partners.get(id);
+}
 
 // Don't ask about the typescript nonesense, all I know is that it works
 // Future me: I know how this works now :D

@@ -11,7 +11,6 @@ import rfdc from 'rfdc'
 import type { ConfigGenerator } from './Config.js'
 import config from './Config.js'
 import type { VersionId } from './services/index.js'
-import { checkVersion } from './services/index.js'
 
 export function isPromise(obj: any): obj is Promise<any> {
 	return typeof (obj as any)?.then === 'function' 
@@ -593,10 +592,23 @@ export function parseGitPatch(patch: string) {
 const legacyFolders = new Set(['loot_table', 'predicate', 'item_modifier', 'advancement', 'recipe', 'tag/function', 'tag/item', 'tag/block', 'tag/fluid', 'tag/entity_type', 'tag/game_event'])
 export function genPath(gen: ConfigGenerator, version: VersionId) {
 	const path = gen.path ?? gen.id
-	if (!checkVersion(version, '1.21') && legacyFolders.has(gen.id)) {
+	/*console.log(path);
+	// TODO: Something is wrong with checkVersion here, but I cba to figure it out, and we only support 1.20.1 rn anyway
+	if (!checkVersion(version, '1.21') && legacyFolders.has(path)) {
+		return path + 's'
+	}*/
+	if (legacyFolders.has(path)) {
 		return path + 's'
 	}
 	return path
+}
+
+export function genNamespace(gen: ConfigGenerator): string {
+	var split = gen.schema.split(":")
+	if (split.length == 1) {
+		return "minecraft"
+	}
+	return split[0]
 }
 
 export function jsonToNbt(value: unknown): NbtTag {

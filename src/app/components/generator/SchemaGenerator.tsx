@@ -10,7 +10,7 @@ import { getOutput } from '../../schema/transformOutput.js'
 import type { VersionId } from '../../services/index.js'
 import { checkVersion, fetchPreset, getBlockStates, getCollections, getModel, getSnippet, shareSnippet } from '../../services/index.js'
 import { Store } from '../../Store.js'
-import { cleanUrl, deepEqual, genPath } from '../../Utils.js'
+import { cleanUrl, deepEqual, genNamespace, genPath } from '../../Utils.js'
 import { Ad, Btn, BtnMenu, ErrorPanel, FileCreation, FileRenaming, Footer, HasPreview, Octicon, PreviewPanel, ProjectCreation, ProjectDeletion, ProjectPanel, SearchList, SourcePanel, TextInput, Tree, VersionSwitcher } from '../index.js'
 
 export const SHARE_KEY = 'share'
@@ -167,7 +167,7 @@ export function SchemaGenerator({ gen, allowedVersions }: Props) {
 
 	const loadPreset = async (id: string) => {
 		try {
-			const preset = await fetchPreset(version, genPath(gen, version), id)
+			const preset = await fetchPreset(version, genPath(gen, version), id, genNamespace(gen))
 			const seed = model?.get(new Path(['generator', 'seed']))
 			if (preset?.generator?.seed !== undefined && seed !== undefined) {
 				preset.generator.seed = seed
