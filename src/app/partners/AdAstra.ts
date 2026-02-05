@@ -13,13 +13,13 @@ export class AdAstra extends AbstractPartner {
 				{
 					dimension: Reference('dimension', 'cosmos'),
 					gravity: NumberNode(),
-					orbit: Opt(StringNode()),
+					orbit: Opt(Reference('dimension', 'cosmos')),
 					oxygen: BooleanNode(),
 					solar_power: NumberNode({integer: true, min: 1}),
 					solar_system: StringNode(),
 					temperature: NumberNode({integer: true}),
 					tier: NumberNode({integer: true, min: 1}),
-					additional_launch_dimensions: Opt(ListNode(StringNode()))
+					additional_launch_dimensions: Opt(ListNode(Reference('dimension', 'cosmos')))
 				},
 				{
 					context: `${ID}.planets`
@@ -30,6 +30,8 @@ export class AdAstra extends AbstractPartner {
 
 	initCollections(collections: CollectionRegistry): void {
 		collections.register('planets', ['earth', 'earth_orbit', 'glacio', 'glacio_orbit', 'mars', 'mars_orbit', 'mercury', 'mercury_orbit', 'moon', 'moon_orbit', 'venus', 'venus_orbit'])
+		// Works! But is for later
+		//collections.register('dimension', ['ad_astra:moon'])
 	}
 
 	getId(): string {
