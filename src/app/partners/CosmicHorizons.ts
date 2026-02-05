@@ -387,7 +387,7 @@ export class CosmicHorizons extends AbstractPartner {
 		return "cosmos";
 	}
 
-	mapPresetURL(registry: string, preset: string): string {
+	mapPresetURL(_registry: string, preset: string): string {
 		return `/data/${preset}.json`
 	}
 }

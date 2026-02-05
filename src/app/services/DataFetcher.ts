@@ -165,6 +165,10 @@ export async function fetchPreset(versionId: VersionId, registry: string, id: st
 
 	try {
 		const version = config.versions.find(v => v.id === versionId)
+
+		if (version == undefined) {
+			throw new Error(`version ${versionId} was not found`);
+		}
 		
 		let url
 		if (namespace != undefined && namespace != "minecraft") {
@@ -174,7 +178,11 @@ export async function fetchPreset(versionId: VersionId, registry: string, id: st
 			const type = ['atlases', 'blockstates', 'items', 'models', 'font'].includes(registry) ? 'assets' : 'data'
 			url = `${mcmeta(version, type)}/${type}/minecraft/${registry}/${id}.json`
 		}
-		console.log(url);
+
+		if (url == undefined) {
+			throw new Error(`Preset url was not defined`)
+		}
+
 		const res = await fetch(url)
 		return await res.json()
 	} catch (e) {

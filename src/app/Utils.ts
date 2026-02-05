@@ -590,7 +590,7 @@ export function parseGitPatch(patch: string) {
 }
 
 const legacyFolders = new Set(['loot_table', 'predicate', 'item_modifier', 'advancement', 'recipe', 'tag/function', 'tag/item', 'tag/block', 'tag/fluid', 'tag/entity_type', 'tag/game_event'])
-export function genPath(gen: ConfigGenerator, version: VersionId) {
+export function genPath(gen: ConfigGenerator, _version: VersionId) {
 	const path = gen.path ?? gen.id
 	/*console.log(path);
 	// TODO: Something is wrong with checkVersion here, but I cba to figure it out, and we only support 1.20.1 rn anyway
