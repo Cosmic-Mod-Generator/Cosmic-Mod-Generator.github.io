@@ -30,8 +30,8 @@ export class AdAstra extends AbstractPartner {
 
 	initCollections(collections: CollectionRegistry): void {
 		collections.register('planets', ['earth', 'earth_orbit', 'glacio', 'glacio_orbit', 'mars', 'mars_orbit', 'mercury', 'mercury_orbit', 'moon', 'moon_orbit', 'venus', 'venus_orbit'])
-		// Works! But is for later
-		//collections.register('dimension', ['ad_astra:moon'])
+		let existing = collections.get("dimension")
+		collections.register('dimension', existing.concat(['ad_astra:glacio', 'ad_astra:mars', 'ad_astra:mercury', 'ad_astra:moon', 'ad_astra:venus']))
 	}
 
 	getId(): string {

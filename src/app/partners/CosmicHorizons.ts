@@ -381,6 +381,8 @@ export class CosmicHorizons extends AbstractPartner {
 
 	initCollections(collections: CollectionRegistry): void {
 		collections.register('cosmic_data', ['alpha_system', 'b_1400_centauri', 'earth_moon', 'europa_lands', 'venuslands', 'gaia_bh_1', 'glacio_lands', 'j_1407blands', 'j_1900', 'jupiterlands', 'marslands', 'mercury_wasteland', 'neptune_lands', 'overworld', 'plutowastelands', 'saturn_lands', 'solar_system', 'uranus_lands'])
+		let existing = collections.get("dimension")
+		collections.register('dimension', existing.concat(['cosmos:alpha_system', 'cosmos:b_1400_centauri', 'cosmos:earth_moon', 'cosmos:europa_lands', 'cosmos:venuslands', 'cosmos:gaia_bh_1', 'cosmos:glacio_lands', 'cosmos:j_1407blands', 'cosmos:j_1900', 'cosmos:jupiterlands', 'cosmos:marslands', 'cosmos:mercury_wasteland', 'cosmos:neptune_lands', 'cosmos:plutowastelands', 'cosmos:solar_system', 'cosmos:uranus_lands']))
 	}
 
 	getId(): string {
