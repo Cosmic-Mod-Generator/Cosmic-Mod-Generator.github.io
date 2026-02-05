@@ -3,7 +3,7 @@ import { CollectionRegistry, INode, Reference as RawReference, StringNode as Raw
 export abstract class AbstractPartner {
 	schemas: SchemaRegistry;
 	collections: CollectionRegistry;
-	
+
 	/**
 	 * A wrapper around {@link RawStringNode StringNode} that automatically uses this partners `collections`
 	 */
@@ -54,7 +54,10 @@ export abstract class AbstractPartner {
 	 * @param namespace Optional, defaults to this partners {@link AbstractPartner.getId()}. Specify this if you want to use a reference from another namespace
 	 * @returns The node
 	 */
-	Reference(id: string, namespace: string = this.getId()): INode {
+	Reference(id: string, namespace: string | undefined = undefined): INode {
+		if (namespace == undefined) {
+			namespace = this.getId()
+		}
 		return RawReference.bind(undefined, this.schemas).call(undefined, `${namespace}:${id}`)
 	}
 

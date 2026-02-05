@@ -7,7 +7,7 @@ export class ValkyrienSkies extends AbstractPartner {
 		// Stupid javascript needing this. for everything
 		const ID = this.getId()
 		const StringNode = this.StringNode
-		const Reference = this.Reference
+		const Reference = this.Reference.bind(this)
 
 		schemas.register(`${ID}:vs_mass`, 
 			Mod(
@@ -15,7 +15,7 @@ export class ValkyrienSkies extends AbstractPartner {
 					[
 						{
 							type: 'list',
-							node: Reference(`${ID}:list_node`),
+							node: Reference(`list_node`),
 							change: v => [v]
 						},
 						// Hella sus but it works

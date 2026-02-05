@@ -159,7 +159,7 @@ export function ProjectProvider({ children }: { children: ComponentChildren }) {
 
 export function getFilePath(file: { id: string, type: string }, version: VersionId) {
 	const [namespace, id] = file.id.includes(':') ? file.id.split(':') : ['minecraft', file.id]
-	console.log(file.type);
+	//console.log(file.type);
 	if (file.type === 'pack_mcmeta') {
 		if (file.id === 'pack') return 'pack.mcmeta'
 		return undefined

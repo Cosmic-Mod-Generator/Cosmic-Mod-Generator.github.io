@@ -6,7 +6,7 @@ export class AdAstra extends AbstractPartner {
 		// Stupid javascript needing this. for everything
 		const ID = this.getId()
 		const StringNode = this.StringNode
-		const Reference = this.Reference
+		const Reference = this.Reference.bind(this)
 
 		schemas.register(`${ID}:planets`, 
 			ObjectNode(
