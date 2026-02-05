@@ -1,18 +1,17 @@
 import { Mod, ModelPath, StringNode, type CollectionRegistry, type INode, type SchemaRegistry } from '@mcschema/core'
 import type { VersionId } from '../services/Schemas.js'
 import { AdAstra } from './AdAstra.js'
-import { initCosmicHorizons } from './CosmicHorizons.js'
+import { CosmicHorizons } from './CosmicHorizons.js'
 import { ValkyrienSkies } from './ValkyrienSkies.js'
-
-export * from './CosmicHorizons.js'
 
 export function initPartners(schemas: SchemaRegistry, collections: CollectionRegistry, _version: VersionId) {
 	schemas.register(`cosmos:dimension`, StringNode(collections, {validator: "resource", params: {pool: "$dimension", allowTag: false, allowUnknown: true}}))
 
-	initCosmicHorizons(schemas, collections)
+	//initCosmicHorizons(schemas, collections)
 	//initValkyrienSkies(schemas, collections)
 	//initAdAstra(schemas, collections)
 	
+	new CosmicHorizons(schemas, collections).init()
 	new ValkyrienSkies(schemas, collections).init()
 	new AdAstra(schemas, collections).init()
 }
@@ -59,7 +58,7 @@ export function initPartners(schemas: SchemaRegistry, collections: CollectionReg
  * @param conditionValue If `pathOrFunction` is a `string[]`, then the item down that chain in the path will be checked with `===` against this value
  * @returns A new node
  */
-export function ConditionalNode<T extends INode<any>>(node: T, pathOrFunction: string[] | ((path: ModelPath) => boolean), conditionValue: any = undefined, defaultValue: any = undefined): T {
+export function ConditionalNode<T extends INode<any>>(node: T, pathOrFunction: string[] | ((path: ModelPath) => boolean), conditionValue: any = undefined): T {
 	if (typeof(pathOrFunction) === "function") {
 		return Mod(node, {
 			enabled: pathOrFunction
@@ -67,7 +66,6 @@ export function ConditionalNode<T extends INode<any>>(node: T, pathOrFunction: s
 	} else {
 		return Mod(node, {
 			enabled: path => pathOrFunction.reduce((p, segment) => p.push(segment), path).get() === conditionValue
-		
 		}) as T;
 	}
 	
