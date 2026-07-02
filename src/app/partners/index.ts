@@ -3,6 +3,7 @@ import type { VersionId } from '../services/Schemas.js'
 import { AbstractPartner } from './AbstractPartner.js'
 import { AdAstra } from './AdAstra.js'
 import { CosmicHorizons } from './CosmicHorizons.js'
+import { Genesis } from './Genesis.js'
 import { ValkyrienSkies } from './ValkyrienSkies.js'
 
 var partners: Map<string, AbstractPartner> = new Map()
@@ -13,10 +14,13 @@ export function initPartners(schemas: SchemaRegistry, collections: CollectionReg
 	var ch = new CosmicHorizons(schemas, collections).init();
 	var vs = new ValkyrienSkies(schemas, collections).init();
 	var ad = new AdAstra(schemas, collections).init();
-	
+	var gn = new Genesis(schemas, collections).init();
+
 	partners.set(ch.getId(), ch);
 	partners.set(vs.getId(), vs);
 	partners.set(ad.getId(), ad);
+	partners.set(gn.getId(), gn)
+
 }
 
 export function getRegisteredPartner(id: string): AbstractPartner  | undefined {

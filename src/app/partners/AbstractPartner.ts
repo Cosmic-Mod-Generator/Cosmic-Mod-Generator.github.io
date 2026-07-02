@@ -53,6 +53,18 @@ export abstract class AbstractPartner {
 	abstract mapPresetURL(registry: string, preset: string): string;
 
 	/**
+	 * Should return the full file path (starting at ``data/``) to save this partners json files to.
+	 * If void is returned, the normal datapack path generation is used (``data/${namespace}/registry/${id}.json``).
+	 * 
+	 * Override this if you need a custom path, e.g. ``data/${namespace}/my_mod/${registry}/${id}.json``.
+	 * @param namespace The namespace the user is saving the file under
+	 * @param id The name of the file the user wants to save (`.json` not included)
+	 */
+	mapSaveLocation(namespace: string, id: string): string | void {
+
+	};
+
+	/**
 	 * A wrapper around {@link RawReference Reference} that automatically uses this partners schema and id.
 	 * 
 	 * @param id The node id you want to reference

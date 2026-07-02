@@ -473,6 +473,14 @@
       "wiki": "https://cosmic-mod.github.io/addonsupport"
     },
     {
+      "id": "celestials",
+      "url": "genesis/celestials",
+      "path": "genesis/celestials",
+      "schema": "genesis:celestials",
+      "minVersion": "1.20",
+      "wiki": "https://jamesgreen26.github.io/genesis/api/implementation-guide.html"
+    },
+    {
       "id": "vs_mass",
       "url": "valkyrienskies/vs-mass",
       "path": "vs_mass",

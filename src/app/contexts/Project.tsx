@@ -3,6 +3,7 @@ import { createContext } from 'preact'
 import { route } from 'preact-router'
 import { useCallback, useContext, useMemo, useState } from 'preact/hooks'
 import config from '../Config.js'
+import { getRegisteredPartner } from '../partners/index.js'
 import type { VersionId } from '../services/index.js'
 import { Store } from '../Store.js'
 import { cleanUrl, genPath } from '../Utils.js'
@@ -159,18 +160,26 @@ export function ProjectProvider({ children }: { children: ComponentChildren }) {
 
 export function getFilePath(file: { id: string, type: string }, version: VersionId) {
 	const [namespace, id] = file.id.includes(':') ? file.id.split(':') : ['minecraft', file.id]
-	//console.log(file.type);
+	//console.log(file.type;
+	
 	if (file.type === 'pack_mcmeta') {
 		if (file.id === 'pack') return 'pack.mcmeta'
 		return undefined
 	}
-	if (file.type === 'cosmic_data') {
-		return `data/cosmos/cosmic_data/${id}.json`
-	}
+
 	const gen = config.generators.find(g => g.id === file.type)
+
 	if (!gen) {
 		return undefined
 	}
+
+	var preset = getRegisteredPartner(gen.schema.split(":")[0]);
+
+	var path = preset?.mapSaveLocation(file.type, id)
+	if (path) {
+		return path;
+	}
+
 	return `data/${namespace}/${genPath(gen, version)}/${id}.json`
 }
 
