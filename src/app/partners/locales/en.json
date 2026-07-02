@@ -73,7 +73,7 @@
   "ad_astra.planets.temperature.help": "Below -50 will freeze, above 70 will burn",
   "ad_astra.planets.tier.help": "The minimum rocket tier required to reach this planet",
   "ad_astra.planets.additional_launch_dimensions.help": "Additional dimensions that the player can launch from",
-  "generator.celestials": "Genesis Celestial",
+  "generator.genesis/celestials": "Genesis Celestial",
   "genesis.celestials.type": "Type",
   "genesis.celestials.type.help": "Celestial type ID",
   "genesis.celestials.size": "Size",

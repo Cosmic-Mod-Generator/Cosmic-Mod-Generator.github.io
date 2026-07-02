@@ -135,7 +135,7 @@ export class Genesis extends AbstractPartner {
 	}
 
 	initCollections(collections: CollectionRegistry): void {
-		collections.register('celestials', [
+		collections.register('genesis/celestials', [
 			'genesis:moon', 
 			'genesis:sun', 
 			'genesis:testbh', 

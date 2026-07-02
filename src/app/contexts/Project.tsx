@@ -35,6 +35,7 @@ export type UnknownFile = {
 
 export const FilePatterns = [
 	'worldgen/[a-z_]+',
+	'genesis/[a-z_]+',
 	'tags/worldgen/[a-z_]+',
 	'tags/[a-z_]+',
 	'[a-z_]+',
