@@ -60,7 +60,7 @@ export abstract class AbstractPartner {
 	 * @param namespace The namespace the user is saving the file under
 	 * @param id The name of the file the user wants to save (`.json` not included)
 	 */
-	mapSaveLocation(namespace: string, id: string): string | void {
+	mapSaveLocation(_namespace: string, _id: string): string | void {
 
 	};
 

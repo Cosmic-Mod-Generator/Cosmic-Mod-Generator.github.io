@@ -393,7 +393,7 @@ export class CosmicHorizons extends AbstractPartner {
 		return `/data/${preset}.json`
 	}
 
-	mapSaveLocation(namespace: string, id: string): string | void {
+	mapSaveLocation(_namespace: string, id: string): string | void {
 		return `data/cosmos/cosmic_data/${id}.json`
 	}
 }

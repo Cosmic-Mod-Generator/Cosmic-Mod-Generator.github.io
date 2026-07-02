@@ -147,7 +147,7 @@ export class Genesis extends AbstractPartner {
 		return "genesis";
 	}
 
-	mapPresetURL(registry: string, preset: string): string {
+	mapPresetURL(_registry: string, preset: string): string {
 		var url_end;
 		if (preset.split(":").length > 1) {
 			url_end = `${preset.split(":")[0]}/genesis/celestials/${preset.split(":")[1]}`;
@@ -185,7 +185,7 @@ function LookupSwitchNode<T>(
     ]);
 	if (!popRoot) {
 		node = Mod(node, {
-			validate(path, value, errors, options) {
+			validate(_path, value, _errors, _options) {
 				if (!value) return defaultNode.default();
 				if (!(siblingKey in value) || typeof(value[siblingKey]) != "string") {
 					return defaultNode.default()
