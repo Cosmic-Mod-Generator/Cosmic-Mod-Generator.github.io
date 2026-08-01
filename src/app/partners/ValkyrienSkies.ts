@@ -34,6 +34,32 @@ export class ValkyrienSkies extends AbstractPartner {
 				}
 			)
 		)
+		
+		schemas.register(`${ID}:vs_slugs`,
+			ObjectNode({
+				replace: Opt(BooleanNode()),
+				values: Opt(ListNode(
+					ChoiceNode([
+						{
+							type: 'string',
+							node: StringNode(),
+							change: (o) => o.id
+						},
+						{
+							type: 'object',
+							node: ObjectNode({
+								id: StringNode(),
+								positions: ListNode(NumberNode({integer: true, min: 0, max: 2}), {minLength: 1})
+							}),
+							change: (s) => {return {id: s}}
+						}
+					])
+				)),
+				remove: Opt(ListNode(StringNode()))
+			}, {
+				context: `${ID}.vs_slugs`
+			})
+		)
 	
 		schemas.register(`${ID}:list_node`, 
 			ListNode(
@@ -176,6 +202,10 @@ export class ValkyrienSkies extends AbstractPartner {
 			'the_nether'
 		])
 
+		collections.register('vs_slugs', [
+			'nouns'
+		])
+
 	}
 
 	getId(): string {
@@ -198,6 +228,8 @@ export class ValkyrienSkies extends AbstractPartner {
 		}
 		else if (registry == "vs_dimension_parameters") {
 			return `https://raw.githubusercontent.com/ValkyrienSkies/Valkyrien-Skies-2/refs/heads/1.20.1/main/common/src/main/resources/data/valkyrienskies/vs_dimension_parameters/${preset}.json`;
+		} else if (registry == "vs_slugs") {
+			return `https://raw.githubusercontent.com/ValkyrienSkies/Valkyrien-Skies-2/refs/heads/1.20.1/playtest/common/src/main/resources/data/valkyrienskies/vs_slugs/${preset}.json`
 		}
 		throw new Error("IllegalStateException: registry not a VS registry");
 	}
